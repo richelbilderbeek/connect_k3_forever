@@ -22,6 +22,8 @@ impl Game {
 
     #[cfg(test)]
     pub fn new(n_cols: usize, n_rows: usize) -> Game {
+        assert!(n_cols > 1);
+        assert!(n_rows > 1);
         Game{
             m_area: vec![vec![0; n_cols]; n_rows],
             m_player: 0,
