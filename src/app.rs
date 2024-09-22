@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use crate::program_state::ProgramState;
 
 #[derive(Component)]
 pub struct Player;
@@ -14,6 +15,7 @@ pub fn create_app() -> App {
         app.add_plugins(AssetPlugin::default());
         app.init_asset::<bevy::render::texture::Image>();
     }
+    app.init_state::<ProgramState>();
     app.add_systems(Startup, add_player);
 
     // Cannot update here, as 'main' would crash,
@@ -63,7 +65,13 @@ fn get_player_has_texture(app: &mut App) -> bool {
 }
 
 #[cfg(test)]
+fn get_program_state(app: &mut App) -> ProgramState {
+  app.stat
+}
+
+#[cfg(test)]
 mod tests {
+    use crate::program_state;
     use super::*;
 
     #[test]
@@ -99,6 +107,13 @@ mod tests {
         let mut app = create_app();
         app.update();
         assert!(get_player_has_texture(&mut app));
+    }
+
+    #[test]
+    fn test_app_starts_in_game() {
+        let mut app = create_app();
+        app.update();
+        assert_eq!(get_program_state(&mut app), program_state::ProgramState::InGame);
     }
 
 }
