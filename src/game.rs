@@ -1,3 +1,4 @@
+
 ///The game logic.
 ///The game does not know which players are human,
 ///except for when suggestion a move.
@@ -95,6 +96,7 @@ std::ostream& operator<<(std::ostream& os, const Game& c);
 
 #[cfg(test)]
 mod tests {
+    use crate::band::get_band_size;
     use super::*;
 
     #[test]
@@ -123,6 +125,13 @@ mod tests {
         assert_eq!(c.get_n_cols(), n_cols);
         assert_eq!(c.get_n_rows(), n_rows);
         assert_eq!(c.get_active_player(), 0);
+        let is_player_human = [true, true, true];
+
+        assert_eq!(is_player_human.len(), get_band_size());
+        assert_eq!(is_player_human[0], true);
+        assert_eq!(is_player_human[1], true);
+        assert_eq!(is_player_human[2], true);
+
         /*
         assert!( c.can_do_move(0,0));
         assert!( c.can_do_move(0,1));
@@ -130,10 +139,6 @@ mod tests {
         assert!( c.can_do_move(1,1));
         assert!(!c.can_do_move(0,n_rows));
         assert!(!c.can_do_move(n_rows,0));
-        std::bitset<3> is_player_human;
-        is_player_human[0] = true;
-        is_player_human[1] = true;
-        is_player_human[2] = true;
         assert!(c.SuggestMove(is_player_human).GetX() >= 0); //It just shouldn't throw
         assert!(c.GetWinner() == Winner::no_winner); //No winner yet
         c.DoMove(0,0);

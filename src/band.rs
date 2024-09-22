@@ -7,26 +7,26 @@ pub struct Band {
 
 /// The size of the band, the number of people that sing at the same time
 #[cfg(test)]
-pub fn get_band_size() -> i8 {
+pub fn get_band_size() -> usize {
     3
 }
 
 
 /// The number of singers with red hair
 #[cfg(test)]
-pub fn get_n_red_hair() -> i8 {
+pub fn get_n_red_hair() -> usize {
     2
 }
 
 /// The number of singers with black hair
 #[cfg(test)]
-pub fn get_n_black_hair() -> i8 {
+pub fn get_n_black_hair() -> usize {
     2
 }
 
 /// The number of singers with blond hair
 #[cfg(test)]
-pub fn get_n_blond_hair() -> i8 {
+pub fn get_n_blond_hair() -> usize {
     4
 }
 
@@ -50,10 +50,8 @@ impl Band {
     ///   - 1: Josje
     ///   - 2: Klaasje
     ///   - 3: Julia
-    pub fn get_name(&self, player_index: i8, singer_index: i8) -> String {
-        assert!(player_index >= 0);
+    pub fn get_name(&self, player_index: usize, singer_index: usize) -> String {
         assert!(player_index < get_band_size());
-        assert!(singer_index >= 0);
         if player_index == 0 { // Red hair
             assert!(singer_index < get_n_red_hair());
             if singer_index == 0 {
