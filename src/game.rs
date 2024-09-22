@@ -52,7 +52,7 @@ impl Game {
     }
 
     #[cfg(test)]
-    pub fn do_move(&mut self, x: usize, y: usize) -> () {
+    pub fn do_move(&mut self, x: usize, y: usize) {
         assert!(self.can_do_move(x, y));
         self.set_square(x, y, self.get_active_player());
         self.m_player = ((self.m_player) + 1) % crate::band::get_band_size() as i8;
@@ -108,7 +108,7 @@ impl Game {
 
     /// Restart the game, maintaining the arena's size
     #[cfg(test)]
-    pub fn restart(&mut self) -> () {
+    pub fn restart(&mut self) {
         self.m_area = vec![vec![-1; self.get_n_cols()]; self.get_n_rows()];
         self.m_player = 0;
     }
@@ -120,7 +120,7 @@ impl Game {
     /// - 0: player 1
     /// - 1: player 2
     /// - 2: player 3
-    pub fn set_square(&mut self, x: usize, y: usize, square_value: i8) -> () {
+    pub fn set_square(&mut self, x: usize, y: usize, square_value: i8) {
         assert!(self.can_get_square(x, y));
         self.m_area[y][x] = square_value;
         assert_eq!(self.get_square(x, y), square_value)
