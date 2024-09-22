@@ -1,5 +1,4 @@
 
-#[cfg(test)]
 pub struct GameAssets {
 
 }
