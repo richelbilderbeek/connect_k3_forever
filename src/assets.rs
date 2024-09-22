@@ -3,6 +3,7 @@ struct Assets {
 
 }
 
+#[cfg(test)]
 impl Assets {
     #[cfg(test)]
     fn get_player_filename(&self, player_index: i8, singer_index: i8) -> String {
