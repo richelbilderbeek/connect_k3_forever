@@ -74,24 +74,6 @@ ribi::con3::Square ribi::con3::Game::GetSquare(const int x, const int y) const n
   return m_area[x][y];
 }
 
-std::string ribi::con3::Game::GetVersion() noexcept
-{
-  return "2.0";
-}
-
-std::vector<std::string> ribi::con3::Game::GetVersionHistory() noexcept
-{
-  return {
-    "2010-12-28: version 0.1: initial seperation of game logic from GUI",
-    "2011-01-09: version 0.2: converted square values to enum constant, fixed small constructor bug",
-    "2011-01-11: version 1.0: added that the game can end in a draw. First tested and debugged version",
-    "2011-04-19: version 1.1: added Restart method, removed m_is_player_human",
-    "2014-02-13: version 1.2: improved interface",
-    "2014-06-30: version 1.3: fixed bug in ribi::con3::ConnectThree::DoMove",
-    "2014-07-21: version 1.4: fixed another bug",
-    "2015-11-14: version 2.0: simplified classes"
-  };
-}
 
 ribi::con3::Winner ribi::con3::Game::GetWinner() const noexcept
 {

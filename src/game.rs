@@ -4,10 +4,17 @@
 ///except for when suggestion a move.
 pub struct Game {
 
-    // The area
+    /// The area. It's cells are:
+    /// - -1: empty
+    /// - 0: player 1
+    /// - 1: player 2
+    /// - 2: player 3
     m_area: Vec<Vec<i8>>,
 
-    // The player that is making a move
+    /// The player that is making a move.
+    /// - 0: player 1
+    /// - 1: player 2
+    /// - 2: player 3
     m_player: i8,
 }
 
@@ -25,18 +32,42 @@ impl Game {
         assert!(n_cols > 1);
         assert!(n_rows > 1);
         Game{
-            m_area: vec![vec![0; n_cols]; n_rows],
+            m_area: vec![vec![-1; n_cols]; n_rows],
             m_player: 0,
         }
     }
+
+    /// Does this square exist? Can it get read?
+    #[cfg(test)]
+    pub fn can_get_square(&self, x: usize, y: usize) -> bool {
+          x < self.get_n_cols() && y < self.get_n_rows()
+    }
+
+    #[cfg(test)]
+    pub fn can_do_move(&self, x: usize, y: usize) -> bool {
+        return self.can_get_square(x,y)
+            && self.is_empty(x, y)
+    }
+
+    #[cfg(test)]
     pub fn get_active_player(&self) -> i8 {
         self.m_player
     }
+
+    #[cfg(test)]
     pub fn get_n_cols(&self) -> usize {
         self.m_area[0].len()
     }
+
+    #[cfg(test)]
     pub fn get_n_rows(&self) -> usize {
         self.m_area.len()
+    }
+
+    #[cfg(test)]
+    pub fn is_empty(&self, x: usize, y: usize) -> bool {
+        assert!(self.can_get_square(x,y));
+        self.m_area[y][x] == -1
     }
 }
 
@@ -118,6 +149,30 @@ mod tests {
         assert_eq!(game.get_n_cols(), n_cols);
         assert_eq!(game.get_n_rows(), n_rows);
     }
+    #[test]
+    fn test_can_get_square() {
+        let game = Game::default();
+        assert_eq!(game.can_get_square(0, 0), true);
+        assert_eq!(game.can_get_square(100, 0), false);
+        assert_eq!(game.can_get_square(0, 100), false);
+    }
+
+    #[test]
+    fn test_is_empty() {
+        let game = Game::default();
+        assert_eq!(game.is_empty(0, 0), true);
+        assert_eq!(game.is_empty(12, 0), true);
+        assert_eq!(game.is_empty(0, 8), true);
+    }
+
+
+    #[test]
+    fn test_can_do_move() {
+        let game = Game::default();
+        assert_eq!(game.can_do_move(0, 0), true);
+        assert_eq!(game.can_do_move(100, 0), false);
+        assert_eq!(game.can_do_move(0, 100), false);
+    }
 
     #[test]
     fn test_play_2_x_2_match() {
@@ -133,14 +188,14 @@ mod tests {
         assert_eq!(is_player_human[0], true);
         assert_eq!(is_player_human[1], true);
         assert_eq!(is_player_human[2], true);
-
-        /*
         assert!( c.can_do_move(0,0));
         assert!( c.can_do_move(0,1));
         assert!( c.can_do_move(1,0));
         assert!( c.can_do_move(1,1));
         assert!(!c.can_do_move(0,n_rows));
         assert!(!c.can_do_move(n_rows,0));
+
+        /*
         assert!(c.SuggestMove(is_player_human).GetX() >= 0); //It just shouldn't throw
         assert!(c.GetWinner() == Winner::no_winner); //No winner yet
         c.DoMove(0,0);
