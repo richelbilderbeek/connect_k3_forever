@@ -9,9 +9,17 @@ The [first versions](https://github.com/richelbilderbeek/K3OpEenRijVcl)
 were programming in C++ Builder and used the Borland's VCL library,
 due to which the game could only be played on Windows.
 
+### Version 3.0
+
+This was the first complete implementation of the game.
+
 ![K3-Op-Een-Rij v3.0 using the VCL](K3OpEenRij_3_0.png)
 
 > K3-Op-Een-Rij v3.0
+
+### Version 4.0
+
+This version added a menu screen.
 
 ![K3-Op-Een-Rij v4.0 using the VCL](K3OpEenRij_4_0.png)
 
@@ -30,7 +38,9 @@ became platform independent. Additionally,
 a version was added to run in the internet browser,
 that uses the Wt libaries.
 
-### Versions 5.0
+### Versions 5.0 and 5.1
+
+These version were the first Qt and Wt implementations.
 
 ![K3-Op-Een-Rij v5.0 using Qt](K3OpEenRijMenu_5_0.png)
 
@@ -39,8 +49,6 @@ that uses the Wt libaries.
 ![K3-Op-Een-Rij v5.0 using Qt](K3OpEenRij_5_0.png)
 
 > K3-Op-Een-Rij v5.0 running in a web browser
-
-### Versions 5.1
 
 ![K3-Op-Een-Rij v5.1 using Qt](K3OpEenRij_5_1Lubuntu.png)
 
@@ -52,11 +60,18 @@ that uses the Wt libaries.
 
 ### Versions 6.0
 
+This was an update on the K3 band formation: the blond
+singer Kathleen left and was replaced by Josje.
+
 ![K3-Op-Een-Rij v6.0 using Qt](K3OpEenRij_6_0.png)
 
 > K3-Op-Een-Rij v6.0
 
-### Versions 7.0
+### Versions 7.0, 7.1 and 7.2.
+
+Due to user feedback, this version allowed the user to pick
+either of the two blond singers.
+Due to more user feedback, the game had some bugs removed.
 
 ![K3-Op-Een-Rij v7.0 using Qt](K3OpEenRij_7_0.png)
 
@@ -70,19 +85,20 @@ that uses the Wt libaries.
 
 > K3-Op-Een-Rij v7.0 instructions dialog
 
-### Versions 7.1
-
 ![K3-Op-Een-Rij v7.1 using Qt](K3OpEenRij_7_1.png)
 
 > K3-Op-Een-Rij v7.1
-
-### Versions 7.2
 
 ![K3-Op-Een-Rij v7.2 using Qt](K3OpEenRij_7_2.png)
 
 > K3-Op-Een-Rij v7.2
 
 ### Versions 8.0
+
+Due to user feedback, this version allowed the user to pick
+a male character. These male characters were picked by a user,
+the author of this game does not know who they are (except for their
+first name).
 
 ![K3-Op-Een-Rij v8.0 using Qt](K3OpEenRij_8_0.png)
 
@@ -93,3 +109,5 @@ that uses the Wt libaries.
 > K3-Op-Een-Rij v8.0 menu dialog
 
 ## Versions 10.0 and later: Rust
+
+The game was ported to Rust.
