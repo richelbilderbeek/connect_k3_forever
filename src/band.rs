@@ -4,8 +4,35 @@ pub struct Band {
 
 }
 
+
+/// The size of the band, the number of people that sing at the same time
+#[cfg(test)]
+pub fn get_band_size() -> i8 {
+    3
+}
+
+
+/// The number of singers with red hair
+#[cfg(test)]
+pub fn get_n_red_hair() -> i8 {
+    2
+}
+
+/// The number of singers with black hair
+#[cfg(test)]
+pub fn get_n_black_hair() -> i8 {
+    2
+}
+
+/// The number of singers with blond hair
+#[cfg(test)]
+pub fn get_n_blond_hair() -> i8 {
+    4
+}
+
 impl Band {
-    #[cfg(test)]
+
+        #[cfg(test)]
     /// @param player_index the player's index:
     /// - 0: player 1, red hair
     /// - 1: player 2, black har
@@ -24,10 +51,10 @@ impl Band {
     ///   - 3: Julia
     pub fn get_name(&self, player_index: i8, singer_index: i8) -> String {
         assert!(player_index >= 0);
-        assert!(player_index < 3);
+        assert!(player_index < get_band_size());
         assert!(singer_index >= 0);
         if player_index == 0 { // Red hair
-            assert!(singer_index < 2);
+            assert!(singer_index < get_n_red_hair());
             if singer_index == 0 {
                 return String::from("karen");
             }
@@ -35,7 +62,7 @@ impl Band {
             return String::from("hanne")
         }
         if player_index == 1 { // Black
-            assert!(singer_index < 2);
+            assert!(singer_index < get_n_black_hair());
             if singer_index == 0 {
                 return String::from("kristel");
             }
@@ -43,7 +70,7 @@ impl Band {
             return String::from("marthe")
         }
         assert_eq!(player_index, 2);
-        assert!(singer_index < 4);
+        assert!(singer_index < get_n_blond_hair());
         if singer_index == 0 {
             return String::from("kathleen");
         }
@@ -67,6 +94,19 @@ mod tests {
     fn test_can_create() {
         let _assets = Band{};
     }
+
+    #[test]
+    fn test_get_band_size() {
+        assert_eq!(get_band_size(), 3);
+    }
+
+    #[test]
+    fn test_get_n_with_hair_color() {
+        assert_eq!(get_n_red_hair(), 2);
+        assert_eq!(get_n_black_hair(), 2);
+        assert_eq!(get_n_blond_hair(), 4);
+    }
+
     #[test]
     fn test_can_get_name() {
         let band = Band{};
