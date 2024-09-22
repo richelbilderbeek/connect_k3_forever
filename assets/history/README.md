@@ -67,7 +67,7 @@ singer Kathleen left and was replaced by Josje.
 
 > K3-Op-Een-Rij v6.0
 
-### Versions 7.0, 7.1 and 7.2.
+### Versions 7.0, 7.1 and 7.2
 
 Due to user feedback, this version allowed the user to pick
 either of the two blond singers.
