@@ -32,11 +32,12 @@ pub fn get_n_blond_hair() -> i8 {
 
 impl Band {
 
-        #[cfg(test)]
+    #[cfg(test)]
     /// @param player_index the player's index:
     /// - 0: player 1, red hair
     /// - 1: player 2, black har
     /// - 2: player 3, blonde hair
+    ///
     /// @param singer_index the index of the player.
     /// - For the singer with red hair:
     ///   - 0: Karen
