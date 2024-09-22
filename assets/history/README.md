@@ -67,11 +67,10 @@ singer Kathleen left and was replaced by Josje.
 
 > K3-Op-Een-Rij v6.0
 
-### Versions 7.0, 7.1 and 7.2
+### Versions 7.0
 
 Due to user feedback, this version allowed the user to pick
 either of the two blond singers.
-Due to more user feedback, the game had some bugs removed.
 
 ![K3-Op-Een-Rij v7.0 using Qt](K3OpEenRij_7_0.png)
 
@@ -84,6 +83,11 @@ Due to more user feedback, the game had some bugs removed.
 ![K3-Op-Een-Rij v7.0 using Qt](K3OpEenRijInstructions_7_0.png)
 
 > K3-Op-Een-Rij v7.0 instructions dialog
+
+### Version 7.1 and 7.2
+
+The band changed its members and this game was updated to be
+able to choose the newest band members.
 
 ![K3-Op-Een-Rij v7.1 using Qt](K3OpEenRij_7_1.png)
 
