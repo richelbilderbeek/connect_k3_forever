@@ -6,7 +6,6 @@ pub struct GameAssets {
 #[cfg(test)]
 impl GameAssets {
 
-    #[cfg(test)]
     pub fn new() -> GameAssets {
         GameAssets{}
     }
