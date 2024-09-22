@@ -1,3 +1,5 @@
+use crate::Assets;
+
 #[cfg(test)]
 pub struct Assets {
 
