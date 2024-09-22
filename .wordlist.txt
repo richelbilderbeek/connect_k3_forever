@@ -14,3 +14,13 @@ txt
 wordlist
 yml
 codecov
+Borland's
+Een
+libaries
+Lubuntu
+OpEenRij
+OpEenRijInstructions
+OpEenRijMenu
+png
+Rij
+VCL

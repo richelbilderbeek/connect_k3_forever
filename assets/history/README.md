@@ -28,7 +28,7 @@ Around 2015, the game was rewritten and
 using Qt Creator using the Qt library, due to which the game
 became platform independent. Additionally,
 a version was added to run in the internet browser,
-that usesd the Wt libaries.
+that uses the Wt libaries.
 
 ### Versions 5.0
 
