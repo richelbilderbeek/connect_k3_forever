@@ -23,9 +23,10 @@ pub fn create_app() -> App {
 }
 
 fn add_player(mut commands: Commands, asset_server: Res<AssetServer>) {
+    let assets = crate::assets::Assets{};
     commands.spawn((
         SpriteBundle {
-            texture: asset_server.load("bevy_bird_dark.png"),
+            texture: asset_server.load(assets.get_player_filename(0, 0)),
             ..default()
         },
         Player,

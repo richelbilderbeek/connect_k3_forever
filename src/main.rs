@@ -3,6 +3,7 @@ use bevy::prelude::*;
 mod app;
 mod assets;
 mod band;
+mod game;
 
 fn main() {
     let mut app = create_app();
