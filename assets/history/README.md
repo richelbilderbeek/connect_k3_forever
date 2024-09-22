@@ -60,11 +60,11 @@ that uses the Wt libaries.
 
 ![K3-Op-Een-Rij v7.0 using Qt](K3OpEenRij_7_0.png)
 
+> K3-Op-Een-Rij v7.0
+
 ![K3-Op-Een-Rij v7.0 using Qt](K3OpEenRijMenu_7_0.png)
 
 > K3-Op-Een-Rij v7.0 menu dialog
-
-> K3-Op-Een-Rij v7.0
 
 ![K3-Op-Een-Rij v7.0 using Qt](K3OpEenRijInstructions_7_0.png)
 
