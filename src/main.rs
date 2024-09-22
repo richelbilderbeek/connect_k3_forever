@@ -1,7 +1,8 @@
 use crate::app::*;
+
 use bevy::prelude::*;
 mod app;
-mod assets;
+mod game_assets;
 mod band;
 mod game;
 

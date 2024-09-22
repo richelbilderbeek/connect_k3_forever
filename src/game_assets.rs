@@ -1,16 +1,15 @@
-use crate::Assets;
 
 #[cfg(test)]
-pub struct Assets {
+pub struct GameAssets {
 
 }
 
 #[cfg(test)]
-impl Assets {
+impl GameAssets {
 
     #[cfg(test)]
-    pub fn new() -> Assets {
-        Assets{}
+    pub fn new() -> GameAssets {
+        GameAssets{}
     }
 
     #[cfg(test)]
@@ -35,16 +34,16 @@ mod tests {
 
     #[test]
     fn test_can_create() {
-        let _assets = Assets::new();
+        let _assets = GameAssets::new();
     }
     #[test]
     fn test_can_get_a_player_filename() {
-        let assets = Assets::new();
+        let assets = GameAssets::new();
         assert!(!assets.get_player_filename(0, 0).is_empty());
     }
     #[test]
     fn test_can_get_correct_player_filename() {
-        let assets = Assets::new();
+        let assets = GameAssets::new();
         assert_eq!(assets.get_player_filename(0, 0), "karen.png");
     }
     #[test]
