@@ -6,26 +6,22 @@ pub struct Band {
 
 
 /// The size of the band, the number of people that sing at the same time
-#[cfg(test)]
 pub fn get_band_size() -> usize {
     3
 }
 
 
 /// The number of singers with red hair
-#[cfg(test)]
 pub fn get_n_red_hair() -> usize {
     2
 }
 
 /// The number of singers with black hair
-#[cfg(test)]
 pub fn get_n_black_hair() -> usize {
     2
 }
 
 /// The number of singers with blond hair
-#[cfg(test)]
 pub fn get_n_blond_hair() -> usize {
     4
 }
