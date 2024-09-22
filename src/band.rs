@@ -1,6 +1,5 @@
 /// Histroy of the band
 
-#[test]
 pub struct Band {
 
 }
