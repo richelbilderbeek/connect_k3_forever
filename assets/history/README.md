@@ -93,4 +93,3 @@ that uses the Wt libaries.
 > K3-Op-Een-Rij v8.0 menu dialog
 
 ## Versions 10.0 and later: Rust
-

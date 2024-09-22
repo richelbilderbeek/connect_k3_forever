@@ -45,7 +45,6 @@ linker = "clang"
 rustflags = ["-C", "link-arg=-fuse-ld=lld"]
 ```
 
-
 ## Files used by continuous integration scripts
 
 Filename                                  |Descriptions
