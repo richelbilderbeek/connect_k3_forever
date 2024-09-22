@@ -1,4 +1,4 @@
-
+#[cfg(test)]
 ///The game logic.
 ///The game does not know which players are human,
 ///except for when suggestion a move.
