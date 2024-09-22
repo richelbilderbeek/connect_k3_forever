@@ -45,7 +45,7 @@ struct Game
     const int n_rows = 12
   );
 
-  bool CanDoMove(const int x, const int y) const noexcept;
+  bool can_do_move(const int x, const int y) const noexcept;
   int CanGetSquare(const int x, const int y) const noexcept;
   void DoMove(const int x, const int y);
   void DoMove(const Move& p) noexcept;
@@ -66,7 +66,7 @@ struct Game
 
 private:
 
-  bool CanDoMove(const Move& p) const noexcept;
+  bool can_do_move(const Move& p) const noexcept;
   Move CheckOneOther(const std::bitset<3>& is_player_human) const;
   Move CheckTwoDiagonally() const;
   Move CheckTwoHorizontalOwn() const;
@@ -113,6 +113,67 @@ mod tests {
         let game = Game::new(n_cols, n_rows);
         assert_eq!(game.get_n_cols(), n_cols);
         assert_eq!(game.get_n_rows(), n_rows);
+    }
+
+    #[test]
+    fn test_play_2_x_2_match() {
+        let n_cols = 2;
+        let n_rows = 2;
+        let c = Game::new(n_cols, n_rows);
+        assert_eq!(c.get_n_cols(), n_cols);
+        assert_eq!(c.get_n_rows(), n_rows);
+        assert_eq!(c.get_active_player(), 0);
+        /*
+        assert!( c.can_do_move(0,0));
+        assert!( c.can_do_move(0,1));
+        assert!( c.can_do_move(1,0));
+        assert!( c.can_do_move(1,1));
+        assert!(!c.can_do_move(0,n_rows));
+        assert!(!c.can_do_move(n_rows,0));
+        std::bitset<3> is_player_human;
+        is_player_human[0] = true;
+        is_player_human[1] = true;
+        is_player_human[2] = true;
+        assert!(c.SuggestMove(is_player_human).GetX() >= 0); //It just shouldn't throw
+        assert!(c.GetWinner() == Winner::no_winner); //No winner yet
+        c.DoMove(0,0);
+        assert(c.GetActivePlayer() == Player::player2);
+        assert(!c.can_do_move(0,0));
+        assert( c.can_do_move(0,1));
+        assert( c.can_do_move(1,0));
+        assert( c.can_do_move(1,1));
+        assert(c.SuggestMove(is_player_human).GetX() >= 0);//It just shouldn't throw
+        assert(c.GetWinner() == Winner::no_winner); //No winner yet
+        c.DoMove(0,1);
+        assert(c.GetActivePlayer() == Player::player3);
+        assert(!c.can_do_move(0,0));
+        assert(!c.can_do_move(0,1));
+        assert( c.can_do_move(1,0));
+        assert( c.can_do_move(1,1));
+        assert(c.SuggestMove(is_player_human).GetX() >= 0);//It just shouldn't throw
+        assert(c.GetWinner() == Winner::no_winner); //No winner yet
+        c.DoMove(1,0);
+        assert(c.GetActivePlayer() == Player::player1);
+        assert(!c.can_do_move(0,0));
+        assert(!c.can_do_move(0,1));
+        assert(!c.can_do_move(1,0));
+        assert( c.can_do_move(1,1));
+        assert(c.SuggestMove(is_player_human).GetX() >= 0);//It just shouldn't throw
+        assert(c.GetWinner() == Winner::no_winner); //No winner yet
+        c.DoMove(1,1);
+        assert(c.GetActivePlayer() == Player::player2);
+        assert(!c.can_do_move(0,0));
+        assert(!c.can_do_move(0,1));
+        assert(!c.can_do_move(1,0));
+        assert(!c.can_do_move(1,1));
+        try {
+            c.SuggestMove(is_player_human);
+        }
+        catch (std::logic_error& ) {
+            //OK
+        }
+        assert(c.GetWinner() == Winner::draw);
+        */
     }
 
 }
