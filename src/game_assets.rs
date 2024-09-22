@@ -9,7 +9,6 @@ impl GameAssets {
         GameAssets{}
     }
 
-    #[cfg(test)]
     pub fn get_player_filename(&self, player_index: usize, singer_index: usize) -> String {
         let band = crate::band::Band{};
         let mut filename = band.get_name(player_index, singer_index);
