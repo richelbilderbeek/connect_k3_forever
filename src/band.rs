@@ -32,7 +32,6 @@ pub fn get_n_blond_hair() -> usize {
 
 impl Band {
 
-    #[cfg(test)]
     /// @param player_index the player's index:
     /// - 0: player 1, red hair
     /// - 1: player 2, black har
