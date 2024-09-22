@@ -1,6 +1,8 @@
 use crate::app::*;
 use bevy::prelude::*;
 mod app;
+mod assets;
+mod band;
 
 fn main() {
     let mut app = create_app();

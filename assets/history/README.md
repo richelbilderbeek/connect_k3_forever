@@ -17,7 +17,7 @@ due to which the game could only be played on Windows.
 
 > K3-Op-Een-Rij v4.0
 
-![K3-Op-Een-Rij v4.0 using the VCL](K3OpEenRijMenu_4_0.png
+![K3-Op-Een-Rij v4.0 using the VCL](K3OpEenRijMenu_4_0.png)
 
 > K3-Op-Een-Rij v4.0 main menu
 
@@ -32,7 +32,7 @@ that usesd the Wt libaries.
 
 ### Versions 5.0
 
-![K3-Op-Een-Rij v5.0 using Qt](K3OpEenRijMenu_5_0.png
+![K3-Op-Een-Rij v5.0 using Qt](K3OpEenRijMenu_5_0.png)
 
 > K3-Op-Een-Rij v5.0 main menu
 
@@ -42,53 +42,53 @@ that usesd the Wt libaries.
 
 ### Versions 5.1
 
-![K3-Op-Een-Rij v5.1 using Qt](K3OpEenRij_5_1Lubuntu.png
+![K3-Op-Een-Rij v5.1 using Qt](K3OpEenRij_5_1Lubuntu.png)
 
 > K3-Op-Een-Rij v5.1 running on Lubuntu
 
-![K3-Op-Een-Rij v5.1 using Qt](K3OpEenRij_5_1Windows.png
+![K3-Op-Een-Rij v5.1 using Qt](K3OpEenRij_5_1Windows.png)
 
 > K3-Op-Een-Rij v5.1 running on Windows
 
 ### Versions 6.0
 
-![K3-Op-Een-Rij v6.0 using Qt](K3OpEenRij_6_0.png
+![K3-Op-Een-Rij v6.0 using Qt](K3OpEenRij_6_0.png)
 
 > K3-Op-Een-Rij v6.0
 
 ### Versions 7.0
 
-![K3-Op-Een-Rij v7.0 using Qt](K3OpEenRij_7_0.png
+![K3-Op-Een-Rij v7.0 using Qt](K3OpEenRij_7_0.png)
 
-![K3-Op-Een-Rij v7.0 using Qt](K3OpEenRijMenu_7_0.png
+![K3-Op-Een-Rij v7.0 using Qt](K3OpEenRijMenu_7_0.png)
 
 > K3-Op-Een-Rij v7.0 menu dialog
 
 > K3-Op-Een-Rij v7.0
 
-![K3-Op-Een-Rij v7.0 using Qt](K3OpEenRijInstructions_7_0.png
+![K3-Op-Een-Rij v7.0 using Qt](K3OpEenRijInstructions_7_0.png)
 
 > K3-Op-Een-Rij v7.0 instructions dialog
 
 ### Versions 7.1
 
-![K3-Op-Een-Rij v7.1 using Qt](K3OpEenRij_7_1.png
+![K3-Op-Een-Rij v7.1 using Qt](K3OpEenRij_7_1.png)
 
 > K3-Op-Een-Rij v7.1
 
 ### Versions 7.2
 
-![K3-Op-Een-Rij v7.2 using Qt](K3OpEenRij_7_2.png
+![K3-Op-Een-Rij v7.2 using Qt](K3OpEenRij_7_2.png)
 
 > K3-Op-Een-Rij v7.2
 
 ### Versions 8.0
 
-![K3-Op-Een-Rij v8.0 using Qt](K3OpEenRij_8_0.png
+![K3-Op-Een-Rij v8.0 using Qt](K3OpEenRij_8_0.png)
 
 > K3-Op-Een-Rij v8.0
 
-![K3-Op-Een-Rij v8.0 using Qt](K3OpEenRijMenu_8_0.png
+![K3-Op-Een-Rij v8.0 using Qt](K3OpEenRijMenu_8_0.png)
 
 > K3-Op-Een-Rij v8.0 menu dialog
 
