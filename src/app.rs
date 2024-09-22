@@ -66,7 +66,7 @@ fn get_player_has_texture(app: &mut App) -> bool {
 
 #[cfg(test)]
 fn get_program_state(app: &mut App) -> ProgramState {
-  app.stat
+  app.
 }
 
 #[cfg(test)]
