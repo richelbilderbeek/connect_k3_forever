@@ -30,7 +30,6 @@ pub fn get_n_blond_hair() -> i8 {
     4
 }
 
-#[test]
 impl Band {
 
         #[cfg(test)]
