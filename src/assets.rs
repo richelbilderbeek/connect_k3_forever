@@ -5,6 +5,12 @@ pub struct Assets {
 
 #[cfg(test)]
 impl Assets {
+
+    #[cfg(test)]
+    pub fn new() -> Assets {
+        Assets{}
+    }
+
     #[cfg(test)]
     pub fn get_player_filename(&self, player_index: usize, singer_index: usize) -> String {
         let band = crate::band::Band{};
@@ -27,16 +33,16 @@ mod tests {
 
     #[test]
     fn test_can_create() {
-        let _assets = Assets{};
+        let _assets = Assets::new();
     }
     #[test]
     fn test_can_get_a_player_filename() {
-        let assets = Assets{};
+        let assets = Assets::new();
         assert!(!assets.get_player_filename(0, 0).is_empty());
     }
     #[test]
     fn test_can_get_correct_player_filename() {
-        let assets = Assets{};
+        let assets = Assets::new();
         assert_eq!(assets.get_player_filename(0, 0), "karen.png");
     }
     #[test]

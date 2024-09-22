@@ -45,7 +45,7 @@ impl Game {
 
     #[cfg(test)]
     pub fn can_do_move(&self, x: usize, y: usize) -> bool {
-        return self.can_get_square(x,y)
+        self.can_get_square(x,y)
             && self.is_empty(x, y)
     }
 
@@ -152,26 +152,26 @@ mod tests {
     #[test]
     fn test_can_get_square() {
         let game = Game::default();
-        assert_eq!(game.can_get_square(0, 0), true);
-        assert_eq!(game.can_get_square(100, 0), false);
-        assert_eq!(game.can_get_square(0, 100), false);
+        assert!(game.can_get_square(0, 0));
+        assert!(!game.can_get_square(100, 0));
+        assert!(!game.can_get_square(0, 100));
     }
 
     #[test]
     fn test_is_empty() {
         let game = Game::default();
-        assert_eq!(game.is_empty(0, 0), true);
-        assert_eq!(game.is_empty(12, 0), true);
-        assert_eq!(game.is_empty(0, 8), true);
+        assert!(game.is_empty(0, 0));
+        assert!(game.is_empty(12, 0));
+        assert!(game.is_empty(0, 8));
     }
 
 
     #[test]
     fn test_can_do_move() {
         let game = Game::default();
-        assert_eq!(game.can_do_move(0, 0), true);
-        assert_eq!(game.can_do_move(100, 0), false);
-        assert_eq!(game.can_do_move(0, 100), false);
+        assert!(game.can_do_move(0, 0));
+        assert!(!game.can_do_move(100, 0));
+        assert!(!game.can_do_move(0, 100));
     }
 
     #[test]
@@ -185,9 +185,9 @@ mod tests {
         let is_player_human = [true, true, true];
 
         assert_eq!(is_player_human.len(), get_band_size());
-        assert_eq!(is_player_human[0], true);
-        assert_eq!(is_player_human[1], true);
-        assert_eq!(is_player_human[2], true);
+        assert!(is_player_human[0]);
+        assert!(is_player_human[1]);
+        assert!(is_player_human[2]);
         assert!( c.can_do_move(0,0));
         assert!( c.can_do_move(0,1));
         assert!( c.can_do_move(1,0));
