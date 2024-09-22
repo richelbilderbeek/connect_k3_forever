@@ -32,27 +32,6 @@ fn add_player(mut commands: Commands, asset_server: Res<AssetServer>) {
     ));
 }
 
-fn can_find_asset(filename: String) -> bool {
-    let mut asset_filename = String::from("assets/");
-    asset_filename.push_str(&filename.clone());
-    std::path::Path::new(&asset_filename).exists()
-    /*
-    let mut app = App::new();
-    //app.add_plugins(TaskPoolPlugin::default());
-    app.add_plugins(AssetPlugin::default());
-    app.update();
-    //app.init_asset::<bevy::render::texture::Image>();
-    app.get_added_plugins::<AssetServer>()[0].get_handle(filename).is_some()
-    */
-    /*
-    let path = std::path::Path::new(&filename);
-    bevy::asset::io::AssetReader::read(path).is_ok()
-     */
-    /*
-    let server = AssetServer::new();
-    server.get_handle(filename).is_some()
-     */
-}
 
 #[cfg(test)]
 fn count_n_players(app: &mut App) -> usize {
@@ -121,9 +100,4 @@ mod tests {
         assert!(get_player_has_texture(&mut app));
     }
 
-    #[test]
-    fn test_can_find_all_files() {
-        assert!(!can_find_asset(String::from("nonsense.png")));
-        assert!(can_find_asset(String::from("K3OpEenRijMarthe.png")));
-    }
 }

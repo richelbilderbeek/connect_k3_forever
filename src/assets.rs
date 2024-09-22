@@ -12,6 +12,12 @@ impl Assets {
     }
 }
 
+#[cfg(test)]
+fn can_find_asset(filename: String) -> bool {
+    let mut asset_filename = String::from("assets/");
+    asset_filename.push_str(&filename.clone());
+    std::path::Path::new(&asset_filename).exists()
+}
 
 #[cfg(test)]
 mod tests {
@@ -30,5 +36,10 @@ mod tests {
     fn test_can_get_correct_player_filename() {
         let assets = Assets{};
         assert_eq!(assets.get_player_filename(0, 0), "karen.png");
+    }
+    #[test]
+    fn test_can_find_asset() {
+        assert!(!can_find_asset(String::from("nonsense.png")));
+        assert!(can_find_asset(String::from("K3OpEenRijMarthe.png")));
     }
 }
