@@ -1,3 +1,4 @@
+#[cfg(test)]
 struct Assets {
 
 }
@@ -8,7 +9,7 @@ impl Assets {
         let band = crate::band::Band{};
         let mut filename = band.get_name(player_index, singer_index);
         filename.push_str(".png");
-        return filename
+        filename
     }
 }
 

@@ -81,7 +81,7 @@ impl Band {
             return String::from("klaasje");
         }
         assert_eq!(singer_index, 3);
-        return String::from("julia")
+        String::from("julia")
     }
 }
 
