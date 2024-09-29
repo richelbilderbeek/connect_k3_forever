@@ -14,7 +14,7 @@ pub fn create_app() -> App {
         app.add_plugins(AssetPlugin::default());
         app.init_asset::<bevy::render::texture::Image>();
     }
-    app.init_state::<ProgramState>();
+    //app.init_state::<ProgramState>(); //No program state
     app.add_systems(Startup, add_player);
 
     // Cannot update here, as 'main' would crash,
