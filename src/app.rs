@@ -3,6 +3,7 @@ use crate::program_state::ProgramState;
 use crate::player::Player;
 
 
+
 pub fn create_app() -> App {
     let mut app = App::new();
 
@@ -14,7 +15,7 @@ pub fn create_app() -> App {
         app.add_plugins(AssetPlugin::default());
         app.init_asset::<bevy::render::texture::Image>();
     }
-    //app.init_state::<ProgramState>(); //No program state
+    //app.init_state::<ProgramState>(); //No program stat
     app.add_systems(Startup, add_player);
 
     // Cannot update here, as 'main' would crash,
