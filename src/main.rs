@@ -6,6 +6,7 @@ mod game_assets;
 mod band;
 mod game;
 mod program_state;
+mod player;
 
 fn main() {
     let mut app = create_app();
