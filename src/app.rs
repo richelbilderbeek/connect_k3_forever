@@ -1,9 +1,9 @@
-use bevy::prelude::*;
 use crate::app_state::AppState;
-use crate::player::Player;
-use bevy::input::InputPlugin;
 use crate::hair_color::HairColor;
 use crate::main_menu_component::MainMenuComponent;
+use crate::player::Player;
+use bevy::input::InputPlugin;
+use bevy::prelude::*;
 
 pub fn create_default_app() -> App {
     let mut app = App::new();
@@ -57,15 +57,15 @@ fn add_main_menu_components(mut commands: Commands) {
         "(A)bout",
         "(Q)uit",
     ];
-    let font_size= 60.0;
+    let font_size = 60.0;
     let row_height = font_size * 1.3;
     let vertical_offset = (texts.len() as f32 * row_height) / 2.0;
-    let color = Color::srgba(1.0,0.8,0.8,1.0);
+    let color = Color::srgba(1.0, 0.8, 0.8, 1.0);
     for i in 0..texts.len() {
         let text_style = TextStyle { font_size: font_size, color: color, ..default() };
         let text = Text::from_section(String::from(texts[i]), text_style);
         let transform = Transform {
-            translation: Vec3::new(0.0 , vertical_offset - (row_height * i as f32), 0.0),
+            translation: Vec3::new(0.0, vertical_offset - (row_height * i as f32), 0.0),
             ..default()
         };
         let text_bundle = Text2dBundle {
@@ -110,7 +110,6 @@ fn count_n_players(app: &mut App) -> usize {
 fn in_game_respond_to_keyboard(
     input: Res<ButtonInput<KeyCode>>,
     mut next_state: ResMut<NextState<AppState>>,
-
 ) {
     if input.just_pressed(KeyCode::Escape) {
         next_state.set(AppState::MainMenu);
@@ -120,7 +119,6 @@ fn in_game_respond_to_keyboard(
 fn main_menu_respond_to_keyboard(
     input: Res<ButtonInput<KeyCode>>,
     mut next_state: ResMut<NextState<AppState>>,
-
 ) {
     if input.just_pressed(KeyCode::KeyS) {
         next_state.set(AppState::InGame);
@@ -172,7 +170,7 @@ fn get_player_has_texture(app: &mut App) -> bool {
 
 #[cfg(test)]
 fn get_program_state(app: &mut App) -> AppState {
-    return *app.world_mut().resource_mut::<State<AppState>>().get()
+    return *app.world_mut().resource_mut::<State<AppState>>().get();
 }
 
 #[cfg(test)]
