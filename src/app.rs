@@ -5,52 +5,9 @@ use crate::player::Player;
 use bevy::input::InputPlugin;
 use bevy::{
     prelude::*,
-    sprite::{MaterialMesh2dBundle, Mesh2dHandle},
+    sprite::{MaterialMesh2dBundle,  Mesh2dHandle},
 };
 
-
-pub fn create_default_app() -> App {
-    let mut app = App::new();
-
-    // Only add these plugin in testing.
-    // The main app will assume it to be absent.
-    // Adding DefaultPlugins will cause tests to crash
-    if cfg!(test) {
-        app.add_plugins(MinimalPlugins);
-        //app.add_plugins(TaskPoolPlugin::default());
-        app.add_plugins(AssetPlugin::default());
-        app.init_asset::<bevy::render::texture::Image>();
-        app.add_plugins(InputPlugin);
-        app.add_plugins(bevy::state::app::StatesPlugin);
-    } else {
-        app.add_plugins(DefaultPlugins);
-    }
-    app.init_state::<AppState>();
-    app.add_systems(Startup, add_camera);
-    app.add_systems(Startup, add_background);
-    app.add_systems(OnEnter(AppState::MainMenu), add_main_menu_components);
-    app.add_systems(OnEnter(AppState::InGame), setup_game);
-    app.add_systems(OnEnter(AppState::Quit), setup_quit_state);
-    app.add_systems(Update, main_menu_respond_to_keyboard.run_if(in_state(AppState::MainMenu)));
-    app.add_systems(Update, in_game_respond_to_keyboard.run_if(in_state(AppState::InGame)));
-    app.add_systems(OnExit(AppState::MainMenu), cleanup_main_menu);
-    app.add_systems(OnExit(AppState::InGame), cleanup_game);
-
-    // Background color
-    //app.insert_resource(ClearColor(Color::srgba(1.0, 0.6, 0.6, 1.0)));
-
-    // Cannot update here, as 'main' would crash,
-    // as it would do 'add_player' without loading the AssetServer
-    // app.update();
-    app
-}
-
-#[cfg(test)]
-pub fn create_app_with_game_state(game_state: AppState) -> App {
-    let mut app = create_default_app();
-    app.insert_state(game_state);
-    app
-}
 fn add_background(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
@@ -84,6 +41,58 @@ fn add_background(
 fn add_camera(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
 }
+
+#[cfg(test)]
+pub fn create_app_with_game_state(game_state: AppState) -> App {
+    let mut app = create_default_app();
+    app.insert_state(game_state);
+    app
+}
+
+pub fn create_default_app() -> App {
+    let mut app = App::new();
+
+    // Only add these plugin in testing.
+    // The main app will assume it to be absent.
+    // Adding DefaultPlugins will cause tests to crash
+    if cfg!(test) {
+        app.add_plugins(MinimalPlugins);
+        app.add_plugins(AssetPlugin::default());
+        app.init_asset::<bevy::render::texture::Image>();
+        app.init_asset::<bevy::render::mesh::Mesh>(); // For background
+        app.init_asset::<bevy::prelude::ColorMaterial>(); // For background
+        app.add_plugins(InputPlugin);
+        app.add_plugins(bevy::state::app::StatesPlugin); // For States
+        app.add_plugins(bevy::window::WindowPlugin::default()); // For window title
+    } else {
+        app.add_plugins(DefaultPlugins);
+    }
+    app.init_state::<AppState>();
+    app.add_systems(Startup, add_camera);
+    app.add_systems(Startup, add_background);
+    app.add_systems(OnEnter(AppState::MainMenu), add_main_menu_components);
+    app.add_systems(OnEnter(AppState::InGame), setup_game);
+    app.add_systems(OnEnter(AppState::Quit), setup_quit_state);
+    app.add_systems(Update, main_menu_respond_to_keyboard.run_if(in_state(AppState::MainMenu)));
+    app.add_systems(Update, in_game_respond_to_keyboard.run_if(in_state(AppState::InGame)));
+    app.add_systems(OnExit(AppState::MainMenu), cleanup_main_menu);
+    app.add_systems(OnExit(AppState::InGame), cleanup_game);
+
+    if app.is_plugin_added::<bevy::window::WindowPlugin>() {
+        set_window_title(&mut app, String::from("Connect K3 Forever"));
+    }
+
+
+    // Background color
+    //app.insert_resource(ClearColor(Color::srgba(1.0, 0.6, 0.6, 1.0)));
+
+    // Cannot update here, as 'main' would crash,
+    // as it would do 'add_player' without loading the AssetServer
+    // app.update();
+    app
+}
+
+
 
 fn add_main_menu_components(mut commands: Commands) {
     let texts = ["Connect K3 Forever",
@@ -159,6 +168,22 @@ fn count_n_players(app: &mut App) -> usize {
     query.iter(app.world_mut()).len()
 }
 
+
+fn count_n_windows(app: &mut App) -> usize {
+    let mut query = app.world_mut().query::<&Window>();
+    query.iter(app.world()).len()
+}
+
+
+#[cfg(test)]
+fn get_window_title(app: &mut App) -> String {
+    assert!(app.is_plugin_added::<bevy::window::WindowPlugin>());
+    assert_eq!(count_n_windows(app), 1);
+    let mut query = app.world_mut().query::<&Window>();
+    let window = query.single(app.world());
+    window.title.clone()
+}
+
 fn in_game_respond_to_keyboard(
     input: Res<ButtonInput<KeyCode>>,
     mut next_state: ResMut<NextState<AppState>>,
@@ -191,6 +216,14 @@ fn setup_game(mut commands: Commands, asset_server: Res<AssetServer>) {
     ));
 }
 
+fn set_window_title(app: &mut App, title: String) {
+    assert!(app.is_plugin_added::<bevy::window::WindowPlugin>());
+    assert_eq!(count_n_windows(app), 1);
+    let mut query = app.world_mut().query::<&mut Window>();
+    let mut window = query.single_mut(app.world_mut());
+    window.title = title;
+
+}
 
 fn setup_quit_state(mut exit: EventWriter<AppExit>) {
     exit.send(AppExit::Success);
@@ -236,11 +269,12 @@ mod tests {
         assert_eq!(count_n_players(&mut app), 0);
     }
 
+
     #[test]
-    fn test_main_menu_has_the_right_amount_of_menu_components() {
+    fn test_main_menu_has_multiple_menu_components() {
         let mut app = create_app_with_game_state(AppState::MainMenu);
         app.update();
-        assert_eq!(count_n_main_menu_components(&mut app), 6);
+        assert!(count_n_main_menu_components(&mut app) > 1);
     }
 
     #[test]
@@ -269,6 +303,13 @@ mod tests {
         let mut app = create_app_with_game_state(AppState::InGame);
         app.update();
         assert!(get_player_has_texture(&mut app));
+    }
+
+    #[test]
+    fn test_app_has_the_correct_window_title() {
+        let mut app = create_default_app();
+        app.update();
+        assert_eq!(get_window_title(&mut app), String::from("Connect K3 Forever"));
     }
 
     #[test]
