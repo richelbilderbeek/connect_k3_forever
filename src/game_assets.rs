@@ -1,3 +1,4 @@
+use crate::hair_color::HairColor;
 
 pub struct GameAssets {
 
@@ -9,9 +10,9 @@ impl GameAssets {
         GameAssets{}
     }
 
-    pub fn get_player_filename(&self, player_index: usize, singer_index: usize) -> String {
+    pub fn get_player_filename(&self, hair_color: HairColor, singer_index: usize) -> String {
         let band = crate::band::Band{};
-        let mut filename = band.get_name(player_index, singer_index);
+        let mut filename = band.get_name(hair_color, singer_index);
         filename.push_str(".png");
         filename
     }
@@ -80,12 +81,12 @@ mod tests {
     #[test]
     fn test_can_get_a_player_filename() {
         let assets = GameAssets::new();
-        assert!(!assets.get_player_filename(0, 0).is_empty());
+        assert!(!assets.get_player_filename(HairColor::Red, 0).is_empty());
     }
     #[test]
     fn test_can_get_correct_player_filename() {
         let assets = GameAssets::new();
-        assert_eq!(assets.get_player_filename(0, 0), "karen.png");
+        assert_eq!(assets.get_player_filename(HairColor::Red, 0), "karen.png");
     }
     #[test]
     fn test_can_find_asset() {
@@ -95,13 +96,13 @@ mod tests {
     #[test]
     fn test_can_find_all_band_assets() {
         let assets = GameAssets::new();
-        assert!(can_find_asset(assets.get_player_filename(0, 0)));
-        assert!(can_find_asset(assets.get_player_filename(0, 1)));
-        assert!(can_find_asset(assets.get_player_filename(1, 0)));
-        assert!(can_find_asset(assets.get_player_filename(1, 1)));
-        assert!(can_find_asset(assets.get_player_filename(2, 0)));
-        assert!(can_find_asset(assets.get_player_filename(2, 1)));
-        assert!(can_find_asset(assets.get_player_filename(2, 2)));
-        assert!(can_find_asset(assets.get_player_filename(2, 3)));
+        assert!(can_find_asset(assets.get_player_filename(HairColor::Red, 0)));
+        assert!(can_find_asset(assets.get_player_filename(HairColor::Red, 1)));
+        assert!(can_find_asset(assets.get_player_filename(HairColor::Black, 0)));
+        assert!(can_find_asset(assets.get_player_filename(HairColor::Black, 1)));
+        assert!(can_find_asset(assets.get_player_filename(HairColor::Blond, 0)));
+        assert!(can_find_asset(assets.get_player_filename(HairColor::Blond, 1)));
+        assert!(can_find_asset(assets.get_player_filename(HairColor::Blond, 2)));
+        assert!(can_find_asset(assets.get_player_filename(HairColor::Blond, 3)));
     }
 }

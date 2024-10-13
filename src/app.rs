@@ -2,6 +2,7 @@ use bevy::prelude::*;
 use crate::app_state::AppState;
 use crate::player::Player;
 use bevy::input::InputPlugin;
+use crate::hair_color::HairColor;
 
 pub fn create_app() -> App {
     let mut app = App::new();
@@ -87,7 +88,7 @@ fn setup_game(mut commands: Commands, asset_server: Res<AssetServer>) {
     let assets = crate::game_assets::GameAssets::new();
     commands.spawn((
         SpriteBundle {
-            texture: asset_server.load(assets.get_player_filename(0, 0)),
+            texture: asset_server.load(assets.get_player_filename(HairColor::Red, 0)),
             ..default()
         },
         Player,

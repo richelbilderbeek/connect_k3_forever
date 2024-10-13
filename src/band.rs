@@ -59,9 +59,10 @@ impl Band {
     ///   - 1: Josje
     ///   - 2: Klaasje
     ///   - 3: Julia
-    pub fn get_name(&self, player_index: usize, singer_index: usize) -> String {
-        assert!(player_index < get_band_size());
-        if player_index == 0 { // Red hair
+    pub fn get_name(&self, player_index: HairColor, singer_index: usize) -> String {
+        //assert!(player_index < get_band_size());
+        assert!(singer_index < get_n_with_hair(player_index.clone()));
+        if player_index == HairColor::Red { // Red hair
             assert!(singer_index < get_n_red_hair());
             if singer_index == 0 {
                 return String::from("karen");
@@ -69,7 +70,7 @@ impl Band {
             assert_eq!(singer_index, 1);
             return String::from("hanne")
         }
-        if player_index == 1 { // Black
+        if player_index == HairColor::Black { // Black
             assert!(singer_index < get_n_black_hair());
             if singer_index == 0 {
                 return String::from("kristel");
@@ -77,7 +78,7 @@ impl Band {
             assert_eq!(singer_index, 1);
             return String::from("marthe")
         }
-        assert_eq!(player_index, 2);
+        assert_eq!(player_index, HairColor::Blond);
         assert!(singer_index < get_n_blond_hair());
         if singer_index == 0 {
             return String::from("kathleen");
@@ -125,19 +126,19 @@ mod tests {
     #[test]
     fn test_can_get_name() {
         let band = Band{};
-        assert!(!band.get_name(0, 0).is_empty());
+        assert!(!band.get_name(HairColor::Red, 0).is_empty());
     }
     #[test]
     fn test_names_are_correct() {
         let band = Band{};
-        assert!(!band.get_name(0, 0).is_empty());
-        assert_eq!(band.get_name(0, 0), "karen");
-        assert_eq!(band.get_name(0, 1), "hanne");
-        assert_eq!(band.get_name(1, 0), "kristel");
-        assert_eq!(band.get_name(1, 1), "marthe");
-        assert_eq!(band.get_name(2, 0), "kathleen");
-        assert_eq!(band.get_name(2, 1), "josje");
-        assert_eq!(band.get_name(2, 2), "klaasje");
-        assert_eq!(band.get_name(2, 3), "julia");
+        assert!(!band.get_name(HairColor::Red, 0).is_empty());
+        assert_eq!(band.get_name(HairColor::Red, 0), "karen");
+        assert_eq!(band.get_name(HairColor::Red, 1), "hanne");
+        assert_eq!(band.get_name(HairColor::Black, 0), "kristel");
+        assert_eq!(band.get_name(HairColor::Black, 1), "marthe");
+        assert_eq!(band.get_name(HairColor::Blond, 0), "kathleen");
+        assert_eq!(band.get_name(HairColor::Blond, 1), "josje");
+        assert_eq!(band.get_name(HairColor::Blond, 2), "klaasje");
+        assert_eq!(band.get_name(HairColor::Blond, 3), "julia");
     }
 }
