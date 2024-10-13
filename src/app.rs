@@ -57,11 +57,11 @@ pub fn create_default_app() -> App {
     // Adding DefaultPlugins will cause tests to crash
     if cfg!(test) {
         app.add_plugins(MinimalPlugins);
-        app.add_plugins(AssetPlugin::default());
-        app.init_asset::<bevy::render::texture::Image>();
+        app.add_plugins(AssetPlugin::default()); // For assets
+        app.init_asset::<bevy::render::texture::Image>(); // For using images
         app.init_asset::<bevy::render::mesh::Mesh>(); // For background
         app.init_asset::<bevy::prelude::ColorMaterial>(); // For background
-        app.add_plugins(InputPlugin);
+        app.add_plugins(InputPlugin); // For input
         app.add_plugins(bevy::state::app::StatesPlugin); // For States
         app.add_plugins(bevy::window::WindowPlugin::default()); // For window title
     } else {
