@@ -57,11 +57,12 @@ fn add_main_menu_components(mut commands: Commands) {
         "(A)bout",
         "(Q)uit",
     ];
-    let font_size= 40.0;
+    let font_size= 60.0;
     let row_height = font_size * 1.3;
     let vertical_offset = (texts.len() as f32 * row_height) / 2.0;
+    let color = Color::srgba(1.0,0.8,0.8,1.0);
     for i in 0..texts.len() {
-        let text_style = TextStyle { font_size: font_size, ..default() };
+        let text_style = TextStyle { font_size: font_size, color: color, ..default() };
         let text = Text::from_section(String::from(texts[i]), text_style);
         let transform = Transform {
             translation: Vec3::new(0.0 , vertical_offset - (row_height * i as f32), 0.0),
