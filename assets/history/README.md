@@ -114,4 +114,12 @@ first name).
 
 ## Versions 10.0 and later: Rust
 
-The game was ported to Rust.
+The game was ported to Rust and renamed to 'Connect K3 Forever'
+
+![Connect K3 Forever v0.1 main game dialog](connect_k3_forever_0_1_menu.png)
+
+> Connect K3 Forever v0.1 main menu
+
+![Connect K3 Forever v0.1 main game dialog](connect_k3_forever_0_1_game.png)
+
+> Connect K3 Forever v0.1 game dialog
