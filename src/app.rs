@@ -86,7 +86,7 @@ fn main_menu_respond_to_keyboard(
     mut next_state: ResMut<NextState<AppState>>,
 
 ) {
-    if input.just_pressed(KeyCode::Space) {
+    if input.just_pressed(KeyCode::KeyS) {
         next_state.set(AppState::InGame);
     }
 }
@@ -184,14 +184,14 @@ mod tests {
     }
 
     #[test]
-    fn test_space_starts_game() {
+    fn test_key_s_starts_game() {
         let mut app = create_default_app();
         app.update();
         assert_eq!(get_program_state(&mut app), AppState::MainMenu);
         app.world_mut()
             .send_event(bevy::input::keyboard::KeyboardInput {
-                key_code: KeyCode::Space,
-                logical_key: bevy::input::keyboard::Key::Space,
+                key_code: KeyCode::KeyS,
+                logical_key: bevy::input::keyboard::Key::Character("s".parse().unwrap()),
                 state: bevy::input::ButtonState::Pressed,
                 window: Entity::PLACEHOLDER,
             });
@@ -207,8 +207,8 @@ mod tests {
         assert_eq!(get_program_state(&mut app), AppState::MainMenu);
         app.world_mut()
             .send_event(bevy::input::keyboard::KeyboardInput {
-                key_code: KeyCode::Space,
-                logical_key: bevy::input::keyboard::Key::Space,
+                key_code: KeyCode::KeyS,
+                logical_key: bevy::input::keyboard::Key::Character("s".parse().unwrap()),
                 state: bevy::input::ButtonState::Pressed,
                 window: Entity::PLACEHOLDER,
             });
