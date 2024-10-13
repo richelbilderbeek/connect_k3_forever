@@ -1,6 +1,6 @@
 [package]
 name = "connect_k3_forever"
-version = "10.0.0"
+version = "10.2.0"
 edition = "2021"
 
 [dependencies]

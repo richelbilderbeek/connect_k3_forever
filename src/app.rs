@@ -99,8 +99,9 @@ fn add_main_menu_components(mut commands: Commands) {
     for (i, &str) in texts.iter().enumerate() {
         let text_style = TextStyle { font_size, color, ..default() };
         let text = Text::from_section(str, text_style);
+        let y = vertical_offset - (row_height * i as f32);
         let transform = Transform {
-            translation: Vec3::new(0.0, vertical_offset - (row_height * i as f32), 0.0),
+            translation: Vec3::new(0.0, y, 0.0),
             ..default()
         };
         let text_bundle = Text2dBundle {
@@ -109,6 +110,22 @@ fn add_main_menu_components(mut commands: Commands) {
             ..default()
         };
         commands.spawn((text_bundle, MainMenuComponent));
+
+        // Same, but with shadow, for shadow
+        let black_color = Color::srgba(0.0, 0.0, 0.0, 1.0);
+        let black_text_style = TextStyle { font_size, color: black_color, ..default() };
+        let black_text = Text::from_section(str, black_text_style);
+        let black_delta = 4.0;
+        let black_transform = Transform {
+            translation: Vec3::new(0.0 + black_delta, y - black_delta, -0.05),
+            ..default()
+        };
+        let black_text_bundle = Text2dBundle {
+            text: black_text,
+            transform: black_transform,
+            ..default()
+        };
+        commands.spawn((black_text_bundle, MainMenuComponent));
     }
 }
 
