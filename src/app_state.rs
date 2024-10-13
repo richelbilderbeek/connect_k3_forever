@@ -1,6 +1,6 @@
 use bevy::prelude::States;
-#[derive(States, Debug, Default, Clone, PartialEq, Eq, Hash)]
-pub enum ProgramState {
+#[derive(States, Copy, Debug, Default, Clone, PartialEq, Eq, Hash)]
+pub enum AppState {
     Loading,
     MainMenu,
     About,

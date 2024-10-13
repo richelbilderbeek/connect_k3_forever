@@ -5,8 +5,9 @@ mod app;
 mod game_assets;
 mod band;
 mod game;
-mod program_state;
+mod app_state;
 mod player;
+mod hair_color;
 
 fn main() {
     let mut app = create_app();

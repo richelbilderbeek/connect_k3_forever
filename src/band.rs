@@ -1,3 +1,5 @@
+use crate::hair_color::HairColor;
+
 /// Histroy of the band
 
 pub struct Band {
@@ -8,6 +10,18 @@ pub struct Band {
 /// The size of the band, the number of people that sing at the same time
 pub fn get_band_size() -> usize {
     3
+}
+
+/// The number of singers with red hair
+pub fn get_n_with_hair(hair_color: HairColor) -> usize {
+    if hair_color == HairColor::Red {
+        get_n_red_hair()
+    } else if hair_color == HairColor::Black {
+        get_n_black_hair()
+    } else {
+        assert_eq!(hair_color, HairColor::Blond);
+        get_n_blond_hair()
+    }
 }
 
 
@@ -82,6 +96,7 @@ impl Band {
 
 #[cfg(test)]
 mod tests {
+    use crate::hair_color::HairColor;
     use super::*;
 
     #[test]
@@ -95,10 +110,16 @@ mod tests {
     }
 
     #[test]
-    fn test_get_n_with_hair_color() {
+    fn test_get_n_with_named_hair_color() {
         assert_eq!(get_n_red_hair(), 2);
         assert_eq!(get_n_black_hair(), 2);
         assert_eq!(get_n_blond_hair(), 4);
+    }
+    #[test]
+    fn test_get_n_with_hair_color() {
+        assert_eq!(get_n_red_hair(), get_n_with_hair(HairColor::Red));
+        assert_eq!(get_n_black_hair(), get_n_with_hair(HairColor::Black));
+        assert_eq!(get_n_blond_hair(), get_n_with_hair(HairColor::Blond));
     }
 
     #[test]

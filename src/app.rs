@@ -1,15 +1,7 @@
 use bevy::prelude::*;
-use crate::program_state::ProgramState;
+use crate::app_state::AppState;
 use crate::player::Player;
 use bevy::input::InputPlugin;
-
-#[derive(Debug, Clone, Copy, Default, Eq, PartialEq, Hash, States)]
-enum AppState {
-    Menu,
-    #[default]
-    InGame,
-}
-
 
 pub fn create_app() -> App {
     let mut app = App::new();
@@ -85,7 +77,6 @@ fn get_program_state(app: &mut App) -> AppState {
 
 #[cfg(test)]
 mod tests {
-    use crate::program_state;
     use super::*;
 
     #[test]
