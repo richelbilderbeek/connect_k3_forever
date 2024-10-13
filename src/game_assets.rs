@@ -90,6 +90,18 @@ mod tests {
     #[test]
     fn test_can_find_asset() {
         assert!(!can_find_asset(String::from("nonsense.png")));
-        assert!(can_find_asset(String::from("K3OpEenRijMarthe.png")));
+        assert!(can_find_asset(String::from("marthe.png")));
+    }
+    #[test]
+    fn test_can_find_all_band_assets() {
+        let assets = GameAssets::new();
+        assert!(can_find_asset(assets.get_player_filename(0, 0)));
+        assert!(can_find_asset(assets.get_player_filename(0, 1)));
+        assert!(can_find_asset(assets.get_player_filename(1, 0)));
+        assert!(can_find_asset(assets.get_player_filename(1, 1)));
+        assert!(can_find_asset(assets.get_player_filename(2, 0)));
+        assert!(can_find_asset(assets.get_player_filename(2, 1)));
+        assert!(can_find_asset(assets.get_player_filename(2, 2)));
+        assert!(can_find_asset(assets.get_player_filename(2, 3)));
     }
 }
