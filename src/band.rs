@@ -42,11 +42,7 @@ pub fn get_n_blond_hair() -> usize {
 
 impl Band {
 
-    /// @param player_index the player's index:
-    /// - 0: player 1, red hair
-    /// - 1: player 2, black har
-    /// - 2: player 3, blonde hair
-    ///
+    /// @param hair_color the player's hair color
     /// @param singer_index the index of the player.
     /// - For the singer with red hair:
     ///   - 0: Karen
@@ -59,10 +55,10 @@ impl Band {
     ///   - 1: Josje
     ///   - 2: Klaasje
     ///   - 3: Julia
-    pub fn get_name(&self, player_index: HairColor, singer_index: usize) -> String {
+    pub fn get_name(&self, hair_color: HairColor, singer_index: usize) -> String {
         //assert!(player_index < get_band_size());
-        assert!(singer_index < get_n_with_hair(player_index.clone()));
-        if player_index == HairColor::Red { // Red hair
+        assert!(singer_index < get_n_with_hair(hair_color.clone()));
+        if hair_color == HairColor::Red { // Red hair
             assert!(singer_index < get_n_red_hair());
             if singer_index == 0 {
                 return String::from("karen");
@@ -70,7 +66,7 @@ impl Band {
             assert_eq!(singer_index, 1);
             return String::from("hanne")
         }
-        if player_index == HairColor::Black { // Black
+        if hair_color == HairColor::Black { // Black
             assert!(singer_index < get_n_black_hair());
             if singer_index == 0 {
                 return String::from("kristel");
@@ -78,7 +74,7 @@ impl Band {
             assert_eq!(singer_index, 1);
             return String::from("marthe")
         }
-        assert_eq!(player_index, HairColor::Blond);
+        assert_eq!(hair_color, HairColor::Blond);
         assert!(singer_index < get_n_blond_hair());
         if singer_index == 0 {
             return String::from("kathleen");
