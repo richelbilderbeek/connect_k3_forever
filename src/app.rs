@@ -24,6 +24,7 @@ pub fn create_default_app() -> App {
     app.add_systems(Startup, add_camera);
     app.add_systems(OnEnter(AppState::MainMenu), add_menu_text);
     app.add_systems(OnEnter(AppState::InGame), setup_game);
+    app.add_systems(OnEnter(AppState::Quit), setup_quit_state);
     app.add_systems(Update, main_menu_respond_to_keyboard.run_if(in_state(AppState::MainMenu)));
     app.add_systems(Update, in_game_respond_to_keyboard.run_if(in_state(AppState::InGame)));
     app.add_systems(OnExit(AppState::MainMenu), cleanup_main_menu);
@@ -89,6 +90,9 @@ fn main_menu_respond_to_keyboard(
     if input.just_pressed(KeyCode::KeyS) {
         next_state.set(AppState::InGame);
     }
+    if input.just_pressed(KeyCode::KeyQ) {
+        next_state.set(AppState::Quit);
+    }
 }
 
 fn setup_game(mut commands: Commands, asset_server: Res<AssetServer>) {
@@ -102,6 +106,10 @@ fn setup_game(mut commands: Commands, asset_server: Res<AssetServer>) {
     ));
 }
 
+
+fn setup_quit_state(mut exit: EventWriter<AppExit>) {
+    exit.send(AppExit::Success);
+}
 
 #[cfg(test)]
 fn count_n_players(app: &mut App) -> usize {
@@ -181,6 +189,23 @@ mod tests {
         let mut app = create_default_app();
         app.update();
         assert_eq!(get_program_state(&mut app), AppState::MainMenu);
+    }
+
+    #[test]
+    fn test_key_q_exits_game() {
+        let mut app = create_default_app();
+        app.update();
+        assert_eq!(get_program_state(&mut app), AppState::MainMenu);
+        app.world_mut()
+            .send_event(bevy::input::keyboard::KeyboardInput {
+                key_code: KeyCode::KeyQ,
+                logical_key: bevy::input::keyboard::Key::Character("q".parse().unwrap()),
+                state: bevy::input::ButtonState::Pressed,
+                window: Entity::PLACEHOLDER,
+            });
+        app.update();
+        app.update();
+        assert_eq!(get_program_state(&mut app), AppState::Quit);
     }
 
     #[test]
