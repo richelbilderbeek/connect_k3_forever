@@ -4,7 +4,7 @@ use crate::player::Player;
 use bevy::input::InputPlugin;
 use crate::hair_color::HairColor;
 
-pub fn create_app() -> App {
+pub fn create_default_app() -> App {
     let mut app = App::new();
 
     // Only add these plugin in testing.
@@ -32,6 +32,13 @@ pub fn create_app() -> App {
     // Cannot update here, as 'main' would crash,
     // as it would do 'add_player' without loading the AssetServer
     // app.update();
+    app
+}
+
+#[cfg(test)]
+pub fn create_app_with_game_state(game_state: AppState) -> App {
+    let mut app = create_default_app();
+    app.insert_state(game_state);
     app
 }
 
@@ -143,45 +150,44 @@ mod tests {
 
     #[test]
     fn test_our_app_has_a_player() {
-        let mut app = create_app();
+        let mut app = create_app_with_game_state(AppState::InGame);
         app.update();
         assert_eq!(count_n_players(&mut app), 1);
     }
 
     #[test]
     fn test_player_is_at_origin() {
-        let mut app = create_app();
+        let mut app = create_app_with_game_state(AppState::InGame);
         app.update();
         assert_eq!(get_player_position(&mut app), Vec2::new(0.0, 0.0));
     }
 
     #[test]
     fn test_player_has_the_default_scale() {
-        let mut app = create_app();
+        let mut app = create_app_with_game_state(AppState::InGame);
         app.update();
         assert_eq!(get_player_scale(&mut app), Vec2::new(1.0, 1.0));
     }
 
     #[test]
     fn test_player_has_a_texture() {
-        let mut app = create_app();
+        let mut app = create_app_with_game_state(AppState::InGame);
         app.update();
         assert!(get_player_has_texture(&mut app));
     }
 
     #[test]
     fn test_app_starts_at_game() {
-        let mut app = create_app();
+        let mut app = create_default_app();
         app.update();
-        assert_eq!(get_program_state(&mut app), AppState::InGame);
+        assert_eq!(get_program_state(&mut app), AppState::MainMenu);
     }
 
-    /*
     #[test]
     fn test_space_starts_game() {
-        let mut app = create_app();
+        let mut app = create_default_app();
         app.update();
-        assert_eq!(get_program_state(&mut app), AppState::Menu);
+        assert_eq!(get_program_state(&mut app), AppState::MainMenu);
         app.world_mut()
             .send_event(bevy::input::keyboard::KeyboardInput {
                 key_code: KeyCode::Space,
@@ -193,10 +199,20 @@ mod tests {
         app.update();
         assert_eq!(get_program_state(&mut app), AppState::InGame);
     }
-    */
+
     #[test]
     fn test_escape_leaves_game() {
-        let mut app = create_app();
+        let mut app = create_default_app();
+        app.update();
+        assert_eq!(get_program_state(&mut app), AppState::MainMenu);
+        app.world_mut()
+            .send_event(bevy::input::keyboard::KeyboardInput {
+                key_code: KeyCode::Space,
+                logical_key: bevy::input::keyboard::Key::Space,
+                state: bevy::input::ButtonState::Pressed,
+                window: Entity::PLACEHOLDER,
+            });
+        app.update();
         app.update();
         assert_eq!(get_program_state(&mut app), AppState::InGame);
         app.world_mut()
