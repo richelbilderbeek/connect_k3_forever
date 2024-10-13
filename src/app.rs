@@ -3,6 +3,7 @@ use crate::app_state::AppState;
 use crate::player::Player;
 use bevy::input::InputPlugin;
 use crate::hair_color::HairColor;
+use crate::main_menu_component::MainMenuComponent;
 
 pub fn create_default_app() -> App {
     let mut app = App::new();
@@ -22,7 +23,7 @@ pub fn create_default_app() -> App {
     }
     app.init_state::<AppState>();
     app.add_systems(Startup, add_camera);
-    app.add_systems(OnEnter(AppState::MainMenu), add_menu_text);
+    app.add_systems(OnEnter(AppState::MainMenu), add_main_menu_components);
     app.add_systems(OnEnter(AppState::InGame), setup_game);
     app.add_systems(OnEnter(AppState::Quit), setup_quit_state);
     app.add_systems(Update, main_menu_respond_to_keyboard.run_if(in_state(AppState::MainMenu)));
@@ -47,11 +48,32 @@ fn add_camera(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
 }
 
-fn add_menu_text(mut commands: Commands) {
-    commands.spawn(Text2dBundle {
-        text: Text::from_section(String::from("Menu. Press space to start"), TextStyle { ..default() }),
-        ..default()
-    });
+fn add_main_menu_components(mut commands: Commands) {
+    let texts = vec![
+        "Connect K3 Forever",
+        "Main Menu",
+        "(S)tart",
+        "(I)nstructions",
+        "(A)bout",
+        "(Q)uit",
+    ];
+    let font_size= 40.0;
+    let row_height = font_size * 1.3;
+    let vertical_offset = (texts.len() as f32 * row_height) / 2.0;
+    for i in 0..texts.len() {
+        let text_style = TextStyle { font_size: font_size, ..default() };
+        let text = Text::from_section(String::from(texts[i]), text_style);
+        let transform = Transform {
+            translation: Vec3::new(0.0 , vertical_offset - (row_height * i as f32), 0.0),
+            ..default()
+        };
+        let text_bundle = Text2dBundle {
+            text: text,
+            transform: transform,
+            ..default()
+        };
+        commands.spawn((text_bundle, MainMenuComponent));
+    }
 }
 
 fn cleanup_game(
@@ -65,11 +87,23 @@ fn cleanup_game(
 
 fn cleanup_main_menu(
     mut commands: Commands,
-    query: Query<Entity, With<Text>>,
+    query: Query<Entity, With<MainMenuComponent>>,
 ) {
     for entity in query.iter() {
         commands.entity(entity).despawn();
     }
+}
+
+#[cfg(test)]
+fn count_n_main_menu_components(app: &mut App) -> usize {
+    let mut query = app.world_mut().query::<&MainMenuComponent>();
+    query.iter(app.world_mut()).len()
+}
+
+#[cfg(test)]
+fn count_n_players(app: &mut App) -> usize {
+    let mut query = app.world_mut().query::<&Player>();
+    query.iter(app.world_mut()).len()
 }
 
 fn in_game_respond_to_keyboard(
@@ -111,11 +145,6 @@ fn setup_quit_state(mut exit: EventWriter<AppExit>) {
     exit.send(AppExit::Success);
 }
 
-#[cfg(test)]
-fn count_n_players(app: &mut App) -> usize {
-    let mut query = app.world_mut().query::<&Player>();
-    query.iter(app.world_mut()).len()
-}
 
 #[cfg(test)]
 fn get_player_position(app: &mut App) -> Vec2 {
@@ -157,7 +186,14 @@ mod tests {
     }
 
     #[test]
-    fn test_our_app_has_a_player() {
+    fn test_main_menu_has_the_right_amount_of_menu_components() {
+        let mut app = create_app_with_game_state(AppState::MainMenu);
+        app.update();
+        assert_eq!(count_n_main_menu_components(&mut app), 6);
+    }
+
+    #[test]
+    fn test_game_has_a_player() {
         let mut app = create_app_with_game_state(AppState::InGame);
         app.update();
         assert_eq!(count_n_players(&mut app), 1);
