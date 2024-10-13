@@ -49,28 +49,26 @@ fn add_camera(mut commands: Commands) {
 }
 
 fn add_main_menu_components(mut commands: Commands) {
-    let texts = vec![
-        "Connect K3 Forever",
+    let texts = ["Connect K3 Forever",
         "Main Menu",
         "(S)tart",
         "(I)nstructions",
         "(A)bout",
-        "(Q)uit",
-    ];
+        "(Q)uit"];
     let font_size = 60.0;
     let row_height = font_size * 1.3;
     let vertical_offset = (texts.len() as f32 * row_height) / 2.0;
     let color = Color::srgba(1.0, 0.8, 0.8, 1.0);
-    for i in 0..texts.len() {
-        let text_style = TextStyle { font_size: font_size, color: color, ..default() };
-        let text = Text::from_section(String::from(texts[i]), text_style);
+    for (i, &str) in texts.iter().enumerate() {
+        let text_style = TextStyle { font_size, color, ..default() };
+        let text = Text::from_section(str, text_style);
         let transform = Transform {
             translation: Vec3::new(0.0, vertical_offset - (row_height * i as f32), 0.0),
             ..default()
         };
         let text_bundle = Text2dBundle {
-            text: text,
-            transform: transform,
+            text,
+            transform,
             ..default()
         };
         commands.spawn((text_bundle, MainMenuComponent));
