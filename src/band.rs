@@ -8,6 +8,7 @@ pub struct Band {
 
 
 /// The size of the band, the number of people that sing at the same time
+#[cfg(test)]
 pub fn get_band_size() -> usize {
     3
 }
