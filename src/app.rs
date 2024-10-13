@@ -19,9 +19,14 @@ pub fn create_app() -> App {
     } else {
         app.add_plugins(DefaultPlugins);
     }
-    //app.init_state::<ProgramState>(); //No program stat
     app.init_state::<AppState>();
-    app.add_systems(Startup, add_player);
+    app.add_systems(Startup, add_camera);
+    app.add_systems(OnEnter(AppState::MainMenu), add_menu_text);
+    app.add_systems(OnEnter(AppState::InGame), setup_game);
+    app.add_systems(Update, main_menu_respond_to_keyboard.run_if(in_state(AppState::MainMenu)));
+    app.add_systems(Update, in_game_respond_to_keyboard.run_if(in_state(AppState::InGame)));
+    app.add_systems(OnExit(AppState::MainMenu), cleanup_main_menu);
+    app.add_systems(OnExit(AppState::InGame), cleanup_game);
 
     // Cannot update here, as 'main' would crash,
     // as it would do 'add_player' without loading the AssetServer
@@ -29,7 +34,56 @@ pub fn create_app() -> App {
     app
 }
 
-fn add_player(mut commands: Commands, asset_server: Res<AssetServer>) {
+fn add_camera(mut commands: Commands) {
+    commands.spawn(Camera2dBundle::default());
+}
+
+fn add_menu_text(mut commands: Commands) {
+    commands.spawn(Text2dBundle {
+        text: Text::from_section(String::from("Menu. Press space to start"), TextStyle { ..default() }),
+        ..default()
+    });
+}
+
+fn cleanup_game(
+    mut commands: Commands,
+    query: Query<Entity, With<Player>>,
+) {
+    for entity in query.iter() {
+        commands.entity(entity).despawn();
+    }
+}
+
+fn cleanup_main_menu(
+    mut commands: Commands,
+    query: Query<Entity, With<Text>>,
+) {
+    for entity in query.iter() {
+        commands.entity(entity).despawn();
+    }
+}
+
+fn in_game_respond_to_keyboard(
+    input: Res<ButtonInput<KeyCode>>,
+    mut next_state: ResMut<NextState<AppState>>,
+
+) {
+    if input.just_pressed(KeyCode::Escape) {
+        next_state.set(AppState::MainMenu);
+    }
+}
+
+fn main_menu_respond_to_keyboard(
+    input: Res<ButtonInput<KeyCode>>,
+    mut next_state: ResMut<NextState<AppState>>,
+
+) {
+    if input.just_pressed(KeyCode::Space) {
+        next_state.set(AppState::InGame);
+    }
+}
+
+fn setup_game(mut commands: Commands, asset_server: Res<AssetServer>) {
     let assets = crate::game_assets::GameAssets::new();
     commands.spawn((
         SpriteBundle {
@@ -138,20 +192,10 @@ mod tests {
         app.update();
         assert_eq!(get_program_state(&mut app), AppState::InGame);
     }
-
+    */
     #[test]
     fn test_escape_leaves_game() {
         let mut app = create_app();
-        app.update();
-        assert_eq!(get_program_state(&mut app), AppState::Menu);
-        app.world_mut()
-            .send_event(bevy::input::keyboard::KeyboardInput {
-                key_code: KeyCode::Space,
-                logical_key: bevy::input::keyboard::Key::Space,
-                state: bevy::input::ButtonState::Pressed,
-                window: Entity::PLACEHOLDER,
-            });
-        app.update();
         app.update();
         assert_eq!(get_program_state(&mut app), AppState::InGame);
         app.world_mut()
@@ -163,7 +207,6 @@ mod tests {
             });
         app.update();
         app.update();
-        assert_eq!(get_program_state(&mut app), AppState::Menu);
+        assert_eq!(get_program_state(&mut app), AppState::MainMenu);
     }
-     */
 }

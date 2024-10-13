@@ -15,10 +15,5 @@ fn main() {
         commands.spawn(Camera2dBundle::default());
     };
     app.add_systems(Startup, add_camera_fn);
-
-    //assert!(!app.is_plugin_added::<AssetPlugin>());
-    //app.add_plugins(DefaultPlugins);
-    //assert!(app.is_plugin_added::<AssetPlugin>());
-
     app.run();
 }
