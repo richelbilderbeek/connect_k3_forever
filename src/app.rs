@@ -1,7 +1,14 @@
 use bevy::prelude::*;
 use crate::program_state::ProgramState;
 use crate::player::Player;
+use bevy::input::InputPlugin;
 
+#[derive(Debug, Clone, Copy, Default, Eq, PartialEq, Hash, States)]
+enum AppState {
+    Menu,
+    #[default]
+    InGame,
+}
 
 
 pub fn create_app() -> App {
@@ -11,11 +18,17 @@ pub fn create_app() -> App {
     // The main app will assume it to be absent.
     // Adding DefaultPlugins will cause tests to crash
     if cfg!(test) {
-        app.add_plugins(TaskPoolPlugin::default());
+        app.add_plugins(MinimalPlugins);
+        //app.add_plugins(TaskPoolPlugin::default());
         app.add_plugins(AssetPlugin::default());
         app.init_asset::<bevy::render::texture::Image>();
+        app.add_plugins(InputPlugin);
+        app.add_plugins(bevy::state::app::StatesPlugin);
+    } else {
+        app.add_plugins(DefaultPlugins);
     }
     //app.init_state::<ProgramState>(); //No program stat
+    app.init_state::<AppState>();
     app.add_systems(Startup, add_player);
 
     // Cannot update here, as 'main' would crash,
@@ -64,6 +77,12 @@ fn get_player_has_texture(app: &mut App) -> bool {
     handle.is_strong()
 }
 
+
+#[cfg(test)]
+fn get_program_state(app: &mut App) -> AppState {
+    return *app.world_mut().resource_mut::<State<AppState>>().get()
+}
+
 #[cfg(test)]
 mod tests {
     use crate::program_state;
@@ -104,14 +123,56 @@ mod tests {
         assert!(get_player_has_texture(&mut app));
     }
 
-    /*
     #[test]
-    fn test_app_starts_in_game() {
+    fn test_app_starts_at_game() {
         let mut app = create_app();
         app.update();
-        assert_eq!(get_program_state(&mut app), program_state::ProgramState::InGame);
+        assert_eq!(get_program_state(&mut app), AppState::InGame);
     }
 
-     */
+    /*
+    #[test]
+    fn test_space_starts_game() {
+        let mut app = create_app();
+        app.update();
+        assert_eq!(get_program_state(&mut app), AppState::Menu);
+        app.world_mut()
+            .send_event(bevy::input::keyboard::KeyboardInput {
+                key_code: KeyCode::Space,
+                logical_key: bevy::input::keyboard::Key::Space,
+                state: bevy::input::ButtonState::Pressed,
+                window: Entity::PLACEHOLDER,
+            });
+        app.update();
+        app.update();
+        assert_eq!(get_program_state(&mut app), AppState::InGame);
+    }
 
+    #[test]
+    fn test_escape_leaves_game() {
+        let mut app = create_app();
+        app.update();
+        assert_eq!(get_program_state(&mut app), AppState::Menu);
+        app.world_mut()
+            .send_event(bevy::input::keyboard::KeyboardInput {
+                key_code: KeyCode::Space,
+                logical_key: bevy::input::keyboard::Key::Space,
+                state: bevy::input::ButtonState::Pressed,
+                window: Entity::PLACEHOLDER,
+            });
+        app.update();
+        app.update();
+        assert_eq!(get_program_state(&mut app), AppState::InGame);
+        app.world_mut()
+            .send_event(bevy::input::keyboard::KeyboardInput {
+                key_code: KeyCode::Escape,
+                logical_key: bevy::input::keyboard::Key::Escape,
+                state: bevy::input::ButtonState::Pressed,
+                window: Entity::PLACEHOLDER,
+            });
+        app.update();
+        app.update();
+        assert_eq!(get_program_state(&mut app), AppState::Menu);
+    }
+     */
 }
