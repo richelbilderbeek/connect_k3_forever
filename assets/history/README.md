@@ -116,10 +116,14 @@ first name).
 
 The game was ported to Rust and renamed to 'Connect K3 Forever'
 
-![Connect K3 Forever v0.1 main game dialog](connect_k3_forever_0_1_menu.png)
+![Connect K3 Forever v10.1 main game dialog](connect_k3_forever_10_1_menu.png)
 
-> Connect K3 Forever v0.1 main menu
+> Connect K3 Forever v10.1 main menu
 
-![Connect K3 Forever v0.1 main game dialog](connect_k3_forever_0_1_game.png)
+![Connect K3 Forever v10.1 main game dialog](connect_k3_forever_10_1_game.png)
 
 > Connect K3 Forever v0.1 game dialog
+
+![Connect K3 Forever v10.2 main game dialog](connect_k3_forever_10_2_menu.png)
+
+> Connect K3 Forever v10.2 main menu
