@@ -11,17 +11,12 @@ pub struct MainMenuComponent;
 
 /// When the menu menu starts
 pub fn add_main_menu_components(mut commands: Commands) {
-    let texts = ["Connect K3 Forever",
-        "Main Menu",
-        "Start",
-        "Instructions",
-        "About",
-        "Quit"];
+    let texts = get_menu_items_texts();
     let font_size = 60.0;
     let row_height = font_size * 1.3;
     let vertical_offset = (texts.len() as f32 * row_height) / 2.0;
     let color = Color::srgba(1.0, 0.8, 0.8, 1.0);
-    for (i, &str) in texts.iter().enumerate() {
+    for (i, str) in texts.iter().enumerate() {
         let text_style = TextStyle { font_size, color, ..default() };
         let text = Text::from_section(str, text_style);
         let y = vertical_offset - (row_height * i as f32);
@@ -54,6 +49,21 @@ pub fn add_main_menu_components(mut commands: Commands) {
     }
 }
 
+fn get_menu_items_texts() -> Vec<String> {
+    vec![
+
+
+
+
+        git commit -m ""
+        "Connect K3 Forever".to_string(),
+        "Main Menu".to_string(),
+        "Start".to_string(),
+        "Instructions".to_string(),
+        "About".to_string(),
+        "Quit".to_string()
+    ]
+}
 
 #[cfg(test)]
 mod tests {

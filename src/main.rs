@@ -9,6 +9,7 @@ mod player;
 mod hair_color;
 mod colors;
 mod main_menu;
+mod language;
 
 fn main() {
     let mut app = create_default_app();
