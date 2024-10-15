@@ -16,7 +16,6 @@ impl std::fmt::Display for Language {
 }
 #[cfg(test)]
 mod tests {
-    use crate::language::Language::Dutch;
     use super::*;
 
     #[test]

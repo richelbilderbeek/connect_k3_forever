@@ -1,9 +1,9 @@
 use bevy::color::Color;
 use bevy::math::Vec3;
-use bevy::prelude::{default, Commands, Component, Entity, KeyCode, Text, Text2dBundle, TextStyle, Transform};
-use crate::app::{create_app_with_game_state, create_default_app};
-use crate::app_state::AppState;
+use bevy::prelude::{default, Commands, Component, KeyCode, Entity, Text, Text2dBundle, TextStyle, Transform};
 use crate::language::Language;
+use crate::app::*;
+use crate::app_state::*;
 
 /// A marker component.
 /// All components used in the main menu are marked with this
@@ -19,6 +19,7 @@ pub fn add_main_menu_components(mut commands: Commands) {
     let vertical_offset = (texts.len() as f32 * row_height) / 2.0;
     let color = Color::srgba(1.0, 0.8, 0.8, 1.0);
     for (i, str) in texts.iter().enumerate() {
+        if i == 2 { continue; }
         let text_style = TextStyle { font_size, color, ..default() };
         let text = Text::from_section(str, text_style);
         let y = vertical_offset - (row_height * i as f32);

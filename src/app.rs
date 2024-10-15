@@ -1,6 +1,7 @@
 use crate::app_state::AppState;
 use crate::hair_color::HairColor;
 use crate::main_menu::*;
+use crate::main_menu_start_button::*;
 use crate::player::Player;
 use bevy::input::InputPlugin;
 use bevy::{
@@ -70,6 +71,8 @@ pub fn create_default_app() -> App {
     app.add_systems(Startup, add_camera);
     app.add_systems(Startup, add_background);
     app.add_systems(OnEnter(AppState::MainMenu), add_main_menu_components);
+    app.add_systems(OnEnter(AppState::MainMenu), add_main_menu_start_button);
+
     app.add_systems(OnEnter(AppState::InGame), setup_game);
     app.add_systems(OnEnter(AppState::Quit), setup_quit_state);
     app.add_systems(Update, main_menu_respond_to_keyboard.run_if(in_state(AppState::MainMenu)));
