@@ -19,7 +19,6 @@ pub fn add_main_menu_components(mut commands: Commands) {
     let vertical_offset = (texts.len() as f32 * row_height) / 2.0;
     let color = Color::srgba(1.0, 0.8, 0.8, 1.0);
     for (i, str) in texts.iter().enumerate() {
-        if i == 2 { continue; }
         let text_style = TextStyle { font_size, color, ..default() };
         let text = Text::from_section(str, text_style);
         let y = vertical_offset - (row_height * i as f32);
@@ -32,7 +31,11 @@ pub fn add_main_menu_components(mut commands: Commands) {
             transform,
             ..default()
         };
-        commands.spawn((text_bundle, MainMenuComponent));
+        //Skip 'Start', this is its own component now
+        if i != 2 {
+            commands.spawn((text_bundle, MainMenuComponent));
+        }
+
 
         // Same, but with shadow, for shadow
         let black_color = Color::srgba(0.0, 0.0, 0.0, 1.0);
