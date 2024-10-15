@@ -3,6 +3,7 @@ use bevy::math::Vec3;
 use bevy::prelude::{default, Commands, Component, Entity, KeyCode, Text, Text2dBundle, TextStyle, Transform};
 use crate::app::{create_app_with_game_state, create_default_app};
 use crate::app_state::AppState;
+use crate::language::Language;
 
 /// A marker component.
 /// All components used in the main menu are marked with this
@@ -11,7 +12,8 @@ pub struct MainMenuComponent;
 
 /// When the menu menu starts
 pub fn add_main_menu_components(mut commands: Commands) {
-    let texts = get_menu_items_texts();
+    let language = Language::English;
+    let texts = get_menu_items_texts(language);
     let font_size = 60.0;
     let row_height = font_size * 1.3;
     let vertical_offset = (texts.len() as f32 * row_height) / 2.0;
@@ -49,7 +51,27 @@ pub fn add_main_menu_components(mut commands: Commands) {
     }
 }
 
-fn get_menu_items_texts() -> Vec<String> {
+fn get_menu_items_texts(language: Language) -> Vec<String> {
+    if language == Language::Dutch {
+        get_dutch_menu_items_texts()
+    } else {
+        assert_eq!(language, Language::English);
+        get_english_menu_items_texts()
+    }
+}
+
+fn get_dutch_menu_items_texts() -> Vec<String> {
+    vec![
+        "Connect K3 Forever".to_string(),
+        "Hoofdmenu".to_string(),
+        "Begin".to_string(),
+        "Spelregels".to_string(),
+        "Over".to_string(),
+        "Stoppen".to_string()
+    ]
+}
+
+fn get_english_menu_items_texts() -> Vec<String> {
     vec![
         "Connect K3 Forever".to_string(),
         "Main Menu".to_string(),
@@ -59,6 +81,7 @@ fn get_menu_items_texts() -> Vec<String> {
         "Quit".to_string()
     ]
 }
+
 
 #[cfg(test)]
 mod tests {
