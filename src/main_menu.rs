@@ -14,7 +14,7 @@ pub struct MainMenuComponent;
 pub fn add_main_menu_components(mut commands: Commands) {
     let language = Language::English;
     let texts = get_menu_items_texts(language);
-    let font_size = 60.0;
+    let font_size = get_main_menu_font_size();
     let row_height = font_size * 1.3;
     let vertical_offset = (texts.len() as f32 * row_height) / 2.0;
     let color = Color::srgba(1.0, 0.8, 0.8, 1.0);
@@ -86,10 +86,18 @@ fn get_english_menu_items_texts() -> Vec<String> {
     ]
 }
 
+pub fn get_main_menu_font_size() -> f32 {
+    60.0
+}
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_get_main_menu_font_size() {
+        assert_eq!(60.0, get_main_menu_font_size());
+    }
 
     #[test]
     fn test_app_starts_at_main_menu() {
