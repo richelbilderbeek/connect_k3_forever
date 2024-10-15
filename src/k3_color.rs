@@ -26,7 +26,7 @@ pub fn get_rainbow_dress_blue() -> Color {
 
 
 mod tests {
-    use super::*;
+    
 
     #[test]
     fn test_get_rainbow_dress_red() {

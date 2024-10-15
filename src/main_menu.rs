@@ -1,9 +1,7 @@
 use bevy::color::Color;
 use bevy::math::Vec3;
-use bevy::prelude::{default, Commands, Component, KeyCode, Entity, Text, Text2dBundle, TextStyle, Transform};
+use bevy::prelude::{default, Commands, Component, Text, Text2dBundle, TextStyle, Transform};
 use crate::language::Language;
-use crate::app::*;
-use crate::app_state::*;
 
 /// A marker component.
 /// All components used in the main menu are marked with this
