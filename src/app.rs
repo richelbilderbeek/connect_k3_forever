@@ -1,6 +1,6 @@
 use crate::app_state::AppState;
 use crate::hair_color::HairColor;
-use crate::main_menu_component::MainMenuComponent;
+use crate::main_menu::*;
 use crate::player::Player;
 use bevy::input::InputPlugin;
 use bevy::{
@@ -42,7 +42,6 @@ fn add_camera(mut commands: Commands) {
     commands.spawn(Camera2dBundle::default());
 }
 
-#[cfg(test)]
 pub fn create_app_with_game_state(game_state: AppState) -> App {
     let mut app = create_default_app();
     app.insert_state(game_state);
@@ -92,52 +91,6 @@ pub fn create_default_app() -> App {
     app
 }
 
-
-
-fn add_main_menu_components(mut commands: Commands) {
-    let texts = ["Connect K3 Forever",
-        "Main Menu",
-        "(S)tart",
-        "(I)nstructions",
-        "(A)bout",
-        "(Q)uit"];
-    let font_size = 60.0;
-    let row_height = font_size * 1.3;
-    let vertical_offset = (texts.len() as f32 * row_height) / 2.0;
-    let color = Color::srgba(1.0, 0.8, 0.8, 1.0);
-    for (i, &str) in texts.iter().enumerate() {
-        let text_style = TextStyle { font_size, color, ..default() };
-        let text = Text::from_section(str, text_style);
-        let y = vertical_offset - (row_height * i as f32);
-        let transform = Transform {
-            translation: Vec3::new(0.0, y, 0.0),
-            ..default()
-        };
-        let text_bundle = Text2dBundle {
-            text,
-            transform,
-            ..default()
-        };
-        commands.spawn((text_bundle, MainMenuComponent));
-
-        // Same, but with shadow, for shadow
-        let black_color = Color::srgba(0.0, 0.0, 0.0, 1.0);
-        let black_text_style = TextStyle { font_size, color: black_color, ..default() };
-        let black_text = Text::from_section(str, black_text_style);
-        let black_delta = 4.0;
-        let black_transform = Transform {
-            translation: Vec3::new(0.0 + black_delta, y - black_delta, -0.05),
-            ..default()
-        };
-        let black_text_bundle = Text2dBundle {
-            text: black_text,
-            transform: black_transform,
-            ..default()
-        };
-        commands.spawn((black_text_bundle, MainMenuComponent));
-    }
-}
-
 fn cleanup_game(
     mut commands: Commands,
     query: Query<Entity, With<Player>>,
@@ -157,7 +110,7 @@ fn cleanup_main_menu(
 }
 
 #[cfg(test)]
-fn count_n_main_menu_components(app: &mut App) -> usize {
+pub fn count_n_main_menu_components(app: &mut App) -> usize {
     let mut query = app.world_mut().query::<&MainMenuComponent>();
     query.iter(app.world_mut()).len()
 }
@@ -254,7 +207,7 @@ fn get_player_has_texture(app: &mut App) -> bool {
 
 
 #[cfg(test)]
-fn get_program_state(app: &mut App) -> AppState {
+pub fn get_program_state(app: &mut App) -> AppState {
     return *app.world_mut().resource_mut::<State<AppState>>().get();
 }
 
@@ -267,14 +220,6 @@ mod tests {
         let mut app = App::new();
         app.update();
         assert_eq!(count_n_players(&mut app), 0);
-    }
-
-
-    #[test]
-    fn test_main_menu_has_multiple_menu_components() {
-        let mut app = create_app_with_game_state(AppState::MainMenu);
-        app.update();
-        assert!(count_n_main_menu_components(&mut app) > 1);
     }
 
     #[test]
@@ -310,47 +255,6 @@ mod tests {
         let mut app = create_default_app();
         app.update();
         assert_eq!(get_window_title(&mut app), String::from("Connect K3 Forever"));
-    }
-
-    #[test]
-    fn test_app_starts_at_game() {
-        let mut app = create_default_app();
-        app.update();
-        assert_eq!(get_program_state(&mut app), AppState::MainMenu);
-    }
-
-    #[test]
-    fn test_key_q_exits_game() {
-        let mut app = create_default_app();
-        app.update();
-        assert_eq!(get_program_state(&mut app), AppState::MainMenu);
-        app.world_mut()
-            .send_event(bevy::input::keyboard::KeyboardInput {
-                key_code: KeyCode::KeyQ,
-                logical_key: bevy::input::keyboard::Key::Character("q".parse().unwrap()),
-                state: bevy::input::ButtonState::Pressed,
-                window: Entity::PLACEHOLDER,
-            });
-        app.update();
-        app.update();
-        assert_eq!(get_program_state(&mut app), AppState::Quit);
-    }
-
-    #[test]
-    fn test_key_s_starts_game() {
-        let mut app = create_default_app();
-        app.update();
-        assert_eq!(get_program_state(&mut app), AppState::MainMenu);
-        app.world_mut()
-            .send_event(bevy::input::keyboard::KeyboardInput {
-                key_code: KeyCode::KeyS,
-                logical_key: bevy::input::keyboard::Key::Character("s".parse().unwrap()),
-                state: bevy::input::ButtonState::Pressed,
-                window: Entity::PLACEHOLDER,
-            });
-        app.update();
-        app.update();
-        assert_eq!(get_program_state(&mut app), AppState::InGame);
     }
 
     #[test]

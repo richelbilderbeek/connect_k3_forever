@@ -1,6 +1,6 @@
 use crate::hair_color::HairColor;
 
-/// Histroy of the band
+/// History of the band
 
 pub struct Band {
 
