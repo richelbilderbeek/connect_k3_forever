@@ -51,11 +51,6 @@ pub fn add_main_menu_components(mut commands: Commands) {
 
 fn get_menu_items_texts() -> Vec<String> {
     vec![
-
-
-
-
-        git commit -m ""
         "Connect K3 Forever".to_string(),
         "Main Menu".to_string(),
         "Start".to_string(),
