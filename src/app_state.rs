@@ -1,5 +1,4 @@
-use bevy::app::App;
-use bevy::prelude::{State, States};
+use bevy::prelude::{States};
 #[derive(States, Copy, Debug, Default, Clone, PartialEq, Eq, Hash)]
 pub enum AppState {
     //About,
