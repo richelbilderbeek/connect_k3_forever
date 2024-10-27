@@ -3,6 +3,7 @@ use crate::background::*;
 use crate::camera::*;
 use crate::hair_color::HairColor;
 use crate::main_menu::*;
+use crate::language_icon::*;
 use crate::main_menu_start_button::*;
 use crate::player::Player;
 use bevy::input::InputPlugin;
@@ -45,6 +46,7 @@ pub fn create_default_app() -> App {
     app.add_systems(Startup, add_background);
     app.add_systems(OnEnter(AppState::MainMenu), add_main_menu_components);
     app.add_systems(OnEnter(AppState::MainMenu), add_main_menu_start_button);
+    app.add_systems(OnEnter(AppState::MainMenu), add_language_icon);
 
     app.add_systems(OnEnter(AppState::InGame), setup_game);
     app.add_systems(OnEnter(AppState::Quit), setup_quit_state);
