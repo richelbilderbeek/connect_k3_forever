@@ -15,6 +15,7 @@ pub struct LanguageIconComponent;
 pub fn add_language_icon(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn((
         SpriteBundle {
+            transform: Transform::from_xyz(200.0, 150.0, 0.0),
             texture: asset_server.load("uk_flag.png"),
             ..default()
         },
