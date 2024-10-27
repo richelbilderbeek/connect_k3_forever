@@ -8,8 +8,6 @@
 #include <ctime>
 #include <iostream>
 
-#include <boost/scoped_ptr.hpp>
-
 #include "connectthreemove.h"
 #include "connectthreemovefactory.h"
 

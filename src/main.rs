@@ -13,6 +13,7 @@ mod language;
 mod main_menu_start_button;
 mod background;
 mod camera;
+mod main_menu_button;
 
 fn main() {
     let mut app = create_default_app();
