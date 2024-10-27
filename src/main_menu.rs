@@ -104,7 +104,7 @@ mod tests {
     fn test_app_starts_at_main_menu() {
         let mut app = create_default_app();
         app.update();
-        assert_eq!(crate::app::get_program_state(&mut app), AppState::MainMenu);
+        assert_eq!(crate::main_menu::get_program_state(&mut app), AppState::MainMenu);
     }
 
     #[test]
@@ -118,7 +118,7 @@ mod tests {
     fn test_key_q_in_main_menu_exits_program() {
         let mut app = create_default_app();
         app.update();
-        assert_eq!(crate::app::get_program_state(&mut app), AppState::MainMenu);
+        assert_eq!(crate::main_menu::get_program_state(&mut app), AppState::MainMenu);
         app.world_mut()
             .send_event(bevy::input::keyboard::KeyboardInput {
                 key_code: KeyCode::KeyQ,
@@ -128,14 +128,14 @@ mod tests {
             });
         app.update();
         app.update();
-        assert_eq!(crate::app::get_program_state(&mut app), AppState::Quit);
+        assert_eq!(crate::main_menu::get_program_state(&mut app), AppState::Quit);
     }
 
     #[test]
     fn test_key_s_starts_game() {
         let mut app = create_default_app();
         app.update();
-        assert_eq!(crate::app::get_program_state(&mut app), AppState::MainMenu);
+        assert_eq!(crate::main_menu::get_program_state(&mut app), AppState::MainMenu);
         app.world_mut()
             .send_event(bevy::input::keyboard::KeyboardInput {
                 key_code: KeyCode::KeyS,
@@ -145,6 +145,6 @@ mod tests {
             });
         app.update();
         app.update();
-        assert_eq!(crate::app::get_program_state(&mut app), AppState::InGame);
+        assert_eq!(crate::main_menu::get_program_state(&mut app), AppState::InGame);
     }
 }

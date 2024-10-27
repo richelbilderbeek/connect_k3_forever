@@ -59,16 +59,16 @@ mod tests {
         assert_eq!(get_english_main_menu_start_button_text(), "Start".to_string());
     }
     #[test]
-    fn test_get_main_menu_start_button_text() {
+    fn test_get_main_menu_start_button_text_per_language() {
         assert_eq!(get_main_menu_start_button_text(Language::Dutch), get_dutch_main_menu_start_button_text());
         assert_eq!(get_main_menu_start_button_text(Language::English), get_english_main_menu_start_button_text());
     }
 
-    #[test]
-    fn test_get_main_menu_start_button_text() {
-        let mut commands: Commands;
-        assert_eq!(true, commands.spawn_empty());
-        add_main_menu_start_button(&commands);
-        assert_eq!(false, commands.spawn_empty());
-    }
+    //#[test]
+    //fn test_get_main_menu_start_button_text() {
+    //    let mut commands: Commands;
+    //    assert_eq!(true, commands.spawn_empty());
+    //    add_main_menu_start_button(&commands);
+    //    assert_eq!(false, commands.spawn_empty());
+    //}
 }

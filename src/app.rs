@@ -1,47 +1,15 @@
-use crate::app_state::AppState;
+use crate::app_state::*;
+use crate::background::*;
+use crate::camera::*;
 use crate::hair_color::HairColor;
 use crate::main_menu::*;
 use crate::main_menu_start_button::*;
 use crate::player::Player;
 use bevy::input::InputPlugin;
 use bevy::{
-    prelude::*,
-    sprite::{MaterialMesh2dBundle,  Mesh2dHandle},
+    prelude::*
 };
 
-fn add_background(
-    mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
-) {
-    // Build a default quad mesh
-    let mut mesh = Mesh::from(Rectangle::default());
-    // Build vertex colors for the quad. One entry per vertex (the corners of the quad)
-    let vertex_colors: Vec<[f32; 4]> = vec![
-        [1.0, 0.2, 0.3, 1.0], // Top-right
-        [1.0, 0.7, 0.8, 1.0], // Top left
-        [1.0, 0.2, 0.4, 1.0], // Bottom-left
-        [1.0, 0.6, 0.7, 1.0], //Bottom-right
-    ];
-    // Insert the vertex colors as an attribute
-    mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, vertex_colors);
-
-    let mesh_handle: Mesh2dHandle = meshes.add(mesh).into();
-
-    // Spawn the quad with vertex colors
-    commands.spawn(MaterialMesh2dBundle {
-        mesh: mesh_handle.clone(),
-        transform: Transform::from_translation(Vec3::new(0.0, 0.0, -0.1))
-            .with_scale(Vec3::splat(2048.0)),
-        material: materials.add(ColorMaterial::default()),
-        ..default()
-    });
-}
-
-
-fn add_camera(mut commands: Commands) {
-    commands.spawn(Camera2dBundle::default());
-}
 
 pub fn create_app_with_game_state(game_state: AppState) -> App {
     let mut app = create_default_app();
@@ -214,10 +182,6 @@ fn get_player_has_texture(app: &mut App) -> bool {
 }
 
 
-#[cfg(test)]
-pub fn get_program_state(app: &mut App) -> AppState {
-    return *app.world_mut().resource_mut::<State<AppState>>().get();
-}
 
 #[cfg(test)]
 mod tests {

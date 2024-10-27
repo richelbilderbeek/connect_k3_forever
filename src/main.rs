@@ -11,6 +11,8 @@ mod k3_color;
 mod main_menu;
 mod language;
 mod main_menu_start_button;
+mod background;
+mod camera;
 
 fn main() {
     let mut app = create_default_app();
