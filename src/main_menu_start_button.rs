@@ -1,5 +1,5 @@
 use bevy::math::Vec3;
-use bevy::prelude::{default, Commands, Component, Text, Text2dBundle, TextStyle, Transform};
+use bevy::prelude::{default, Commands, Component, Text, Text2d, TextStyle, Transform};
 use crate::k3_color::*;
 use crate::language::Language;
 use crate::main_menu::*;
@@ -19,7 +19,7 @@ pub fn add_main_menu_start_button(mut commands: Commands) {
         translation: Vec3::new(0.0, 75.0, 0.1),
         ..default()
     };
-    let text_bundle = Text2dBundle {
+    let text_bundle = Text2d {
         text,
         transform,
         ..default()

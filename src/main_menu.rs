@@ -1,6 +1,6 @@
 use bevy::color::Color;
 use bevy::math::Vec3;
-use bevy::prelude::{default, Commands, Component, Text, Text2dBundle, TextStyle, Transform};
+use bevy::prelude::{default, Commands, Component, Text, Text2d, TextStyle, Transform};
 use crate::language::Language;
 
 
@@ -25,7 +25,7 @@ pub fn add_main_menu_components(mut commands: Commands) {
             translation: Vec3::new(0.0, y, 0.0),
             ..default()
         };
-        let text_bundle = Text2dBundle {
+        let text_bundle = Text2d {
             text,
             transform,
             ..default()
@@ -45,7 +45,7 @@ pub fn add_main_menu_components(mut commands: Commands) {
             translation: Vec3::new(0.0 + black_delta, y - black_delta, -0.05),
             ..default()
         };
-        let black_text_bundle = Text2dBundle {
+        let black_text_bundle = Text2d {
             text: black_text,
             transform: black_transform,
             ..default()
