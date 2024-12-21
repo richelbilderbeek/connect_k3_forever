@@ -2,7 +2,7 @@ use bevy::prelude::Image;
 use bevy::prelude::Handle;
 use bevy::prelude::App;
 use crate::main_menu::MainMenuComponent;
-use bevy::prelude::SpriteBundle;
+use bevy::prelude::Sprite;
 use bevy::prelude::AssetServer;
 use bevy::prelude::Res;
 /// The icon at the bottom right of the menu screen
@@ -14,7 +14,7 @@ pub struct LanguageIconComponent;
 
 pub fn add_language_icon(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn((
-        SpriteBundle {
+        Sprite {
             transform: Transform::from_xyz(200.0, 150.0, 0.0),
             texture: asset_server.load("uk_flag.png"),
             ..default()

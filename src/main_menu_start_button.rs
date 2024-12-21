@@ -1,5 +1,5 @@
 use bevy::math::Vec3;
-use bevy::prelude::{default, Commands, Component, Text, Text2d, TextStyle, Transform};
+use bevy::prelude::{default, Commands, Component, Text, Text2d, Transform};
 use crate::k3_color::*;
 use crate::language::Language;
 use crate::main_menu::*;
@@ -13,8 +13,7 @@ pub fn add_main_menu_start_button(mut commands: Commands) {
     let text_str = get_main_menu_start_button_text(language);
     let font_size = get_main_menu_font_size();
     let color = get_rainbow_dress_red();
-    let text_style = TextStyle { font_size, color, ..default() };
-    let text = Text::from_section(text_str, text_style);
+    let text = Text2d::new(text_str);
     let transform = Transform {
         translation: Vec3::new(0.0, 75.0, 0.1),
         ..default()

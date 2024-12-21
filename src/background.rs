@@ -1,7 +1,7 @@
+use bevy::prelude::Handle;
 use bevy::asset::Assets;
 use bevy::math::Vec3;
 use bevy::prelude::{default, ColorMaterial, Commands, Mesh, Rectangle, ResMut, Transform};
-use bevy::sprite::{MaterialMesh2dBundle, Mesh2dHandle};
 
 pub fn add_background(
     mut commands: Commands,
@@ -20,14 +20,15 @@ pub fn add_background(
     // Insert the vertex colors as an attribute
     mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, vertex_colors);
 
-    let mesh_handle: Mesh2dHandle = meshes.add(mesh).into();
+    let mesh_handle: Handle<Mesh> = meshes.add(mesh).into();
 
     // Spawn the quad with vertex colors
-    commands.spawn(MaterialMesh2dBundle {
-        mesh: mesh_handle.clone(),
-        transform: Transform::from_translation(Vec3::new(0.0, 0.0, -0.1))
+    commands.spawn(
+(
+        mesh_handle.clone(),
+        Transform::from_translation(Vec3::new(0.0, 0.0, -0.1))
             .with_scale(Vec3::splat(2048.0)),
-        material: materials.add(ColorMaterial::default()),
-        ..default()
-    });
+        materials.add(ColorMaterial::default())
+        )
+    );
 }

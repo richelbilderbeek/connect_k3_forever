@@ -32,7 +32,7 @@ pub fn create_default_app() -> App {
     if cfg!(test) {
         app.add_plugins(MinimalPlugins);
         app.add_plugins(AssetPlugin::default()); // For assets
-        app.init_asset::<bevy::render::texture::Image>(); // For using images
+        app.init_asset::<bevy::prelude::Image>(); // For using images
         app.init_asset::<bevy::render::mesh::Mesh>(); // For background
         app.init_asset::<bevy::prelude::ColorMaterial>(); // For background
         app.add_plugins(InputPlugin); // For input
@@ -139,7 +139,7 @@ fn main_menu_respond_to_keyboard(
 fn setup_game(mut commands: Commands, asset_server: Res<AssetServer>) {
     let assets = crate::game_assets::GameAssets::new();
     commands.spawn((
-        SpriteBundle {
+        Sprite {
             texture: asset_server.load(assets.get_player_filename(HairColor::Red, 0)),
             ..default()
         },
